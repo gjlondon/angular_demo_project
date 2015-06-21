@@ -45,7 +45,8 @@ INSTALLED_APPS = (
     "django_extensions",
 
     # local
-    'authentication'
+    'authentication',
+    'meals'
 )
 
 MIDDLEWARE_CLASSES = (
