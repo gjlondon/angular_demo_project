@@ -4,8 +4,8 @@
         .module('mealTracker', [
             'mealTracker.routes',
             'mealTracker.config',
-
-            'mealTracker.authentication'
+            'mealTracker.authentication',
+            'mealTracker.layout'
             ]);
 
     angular.module('mealTracker.config', []);
