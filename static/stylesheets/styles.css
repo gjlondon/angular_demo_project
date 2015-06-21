@@ -1,0 +1,15 @@
+.no-meals-here {
+  text-align: center;
+}
+
+.meal {}
+
+.meal .meal__meta {
+  font-weight: bold;
+  text-align: right;
+  padding-bottom: 19px;
+}
+
+.meal .meal__meta a:hover {
+  text-decoration: none;
+}

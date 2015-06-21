@@ -15,6 +15,8 @@ class MealViewSet(viewsets.ModelViewSet):
             return (permissions.AllowAny(),)
         return (permissions.IsAuthenticated(), IsEaterOfMeal(),)
 
+
+
 def perform_create(self, serializer):
     instance = serializer.save(author=self.request.user)
 
@@ -30,4 +32,4 @@ class AccountMealsViewSet(viewsets.ViewSet):
         queryset = self.queryset.filter(author__username=account_username)
         serializer = self.serializer_class(queryset, many=True)
 
-        return Response(serializer.data)
+        return Response(serializer.data, content_type='application/json')

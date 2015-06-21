@@ -9,13 +9,12 @@ from meals.views import MealViewSet, AccountMealsViewSet
 
 router = routers.SimpleRouter()
 router.register(r'accounts', AccountViewSet)
-
-router.register(r'posts', MealViewSet)
+router.register(r'meals', MealViewSet)
 
 accounts_router = routers.NestedSimpleRouter(
     router, r'accounts', lookup='account'
 )
-accounts_router.register(r'posts', AccountMealsViewSet)
+accounts_router.register(r'meals', AccountMealsViewSet)
 
 urlpatterns = patterns(
      '',
