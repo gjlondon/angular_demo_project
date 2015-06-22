@@ -38,6 +38,12 @@
         vm.meals.unshift(meal);
       });
 
+      $scope.$on('meal.deleted', function (event, meal) {
+        var idx;
+        idx = vm.meals.indexOf(meal);
+        return vm.meals.splice(idx, 1);
+      });
+
       $scope.$on('meal.created.error', function () {
         vm.meals.shift();
       });

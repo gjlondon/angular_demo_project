@@ -23,7 +23,8 @@
     var Meals = {
       all: all,
       create: create,
-      get: get
+      get: get,
+      deleteMeal: deleteMeal
     };
 
     return Meals;
@@ -38,6 +39,17 @@
     */
     function all() {
       return $http.get('/api/v1/meals/');
+    }
+
+    /**
+    * @name deleteMeal
+    * @desc delete given meal
+     * @param {Meal} meal to delete
+    * @returns {Promise}
+    * @memberOf mealTracker.meals.services.Meals
+    */
+    function deleteMeal(meal) {
+      return $http.delete('/api/v1/meals/' + meal.id + '/');
     }
 
 

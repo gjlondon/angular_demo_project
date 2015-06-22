@@ -29,7 +29,8 @@
     function activate() {
       // If the user is authenticated, they should not be here.
       if (Authentication.isAuthenticated()) {
-          $location.url('/');
+        console.log(Authentication.getAuthenticatedAccount())
+        $location.url('/');
       }
     }
 
@@ -40,6 +41,7 @@
     */
     function login() {
       Authentication.login(vm.username, vm.password);
+
     }
   }
 })();

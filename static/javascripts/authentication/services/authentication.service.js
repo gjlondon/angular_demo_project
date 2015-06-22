@@ -13,13 +13,13 @@
         .module('mealTracker.authentication.services')
         .factory('Authentication', Authentication);
 
-    Authentication.$inject = ['$cookies', '$http', 'Snackbar'];
+    Authentication.$inject = ['$cookies', '$http', '$location', 'Snackbar'];
 
     /**
      * @namespace Authentication
      * @returns {Factory}
      */
-    function Authentication($cookies, $http, Snackbar) {
+    function Authentication($cookies, $http, $location, Snackbar) {
         /**
          * @name Authentication
          * @desc The Factory to be returned
@@ -92,7 +92,8 @@
             function loginSuccessFn(data, status, headers, config) {
                 Authentication.setAuthenticatedAccount(data.data);
                 // TODO this might count as a page refresh
-                window.location = '/';
+                $location.url('/');
+
             }
 
             /**
@@ -113,6 +114,7 @@
          */
         function getAuthenticatedAccount() {
             if (!$cookies.authenticatedAccount) {
+                console.log($cookies.authenticatedAccount)
                 return;
             }
 
@@ -126,7 +128,7 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function isAuthenticated() {
-            return !!$cookies.authenticatedAccount;
+            return $cookies.authenticatedAccount;
         }
 
         /**
@@ -167,7 +169,7 @@
             function logoutSuccessFn(data, status, headers, config) {
                 Authentication.unauthenticate();
                 // TODO this might count as a page refresh
-                window.location = '/';
+                $location.url('/');
             }
 
             /**

@@ -2,6 +2,7 @@
   <div class="col-sm-12">
     <div class="well">
       <div class="meal">
+
         <div class="meal__meta">
           <a href="/+{{ meal.eater.username }}">
             +{{ meal.eater.username }}
@@ -16,6 +17,7 @@
           <div class="meal__calories">
               <strong>Calories: </strong> {{ meal.calories }}
           </div>
+          <delete-meal meal="meal"></delete-meal>
       </div>
     </div>
   </div>

@@ -11,5 +11,5 @@
     ]);
 
   angular
-    .module('mealTracker.layout.controllers', []);
+    .module('mealTracker.layout.controllers', ['mealTracker.meals.controllers']);
 })();

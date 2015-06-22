@@ -29,14 +29,7 @@
     * @memberOf mealTracker.meals.controllers.NewMealController
     */
     function submit() {
-        $rootScope.$broadcast('meal.created', {
-            description: vm.description,
-            calories: vm.calories,
-            name: vm.name,
-            eater: {
-                username: Authentication.getAuthenticatedAccount().username
-            }
-        });
+
 
       $scope.closeThisDialog();
 
@@ -48,7 +41,15 @@
       * @desc Show snackbar with success message
       */
       function createMealSuccessFn(data, status, headers, config) {
-        Snackbar.show('Success! Meal created.');
+          Snackbar.show('Success! Meal created.');
+          var meal = data.data;
+          $rootScope.$broadcast('meal.created', {
+              description: meal.description,
+              calories: meal.calories,
+              name: meal.name,
+              eater: meal.eater,
+              id: meal.id
+          });
       }
 
 

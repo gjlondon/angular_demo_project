@@ -85,7 +85,7 @@
       */
       function profileSuccessFn(data, status, headers, config) {
         Authentication.unauthenticate();
-        window.location = '/';
+        $location.url = '/';
 
         Snackbar.show('Your account has been deleted.');
       }
