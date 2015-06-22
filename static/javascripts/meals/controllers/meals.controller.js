@@ -67,8 +67,6 @@
     */
     function approximateShortestColumn() {
       var scores = vm.columns.map(columnMapFn);
-      console.log(vm.columns);
-        console.log(scores);
       return scores.indexOf(Math.min.apply(this, scores));
 
 
@@ -106,8 +104,7 @@
     * @memberOf mealTracker.meals.controllers.MealsController
     */
     function render(current, original) {
-      console.log(current);
-      console.log(original);
+
       if (current !== original) {
         vm.columns = [];
 
@@ -121,7 +118,6 @@
           vm.columns[column].push(current[i]);
         }
       }
-        console.log(vm.columns)
     }
   }
 })();

@@ -43,7 +43,6 @@
     * @memberOf mealTracker.authentication.controllers.RegisterController
     */
     function register() {
-      console.log('here');
       Authentication.register(vm.email, vm.password, vm.username);
     }
   }

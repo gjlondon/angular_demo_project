@@ -7,6 +7,7 @@
             'mealTracker.authentication',
             'mealTracker.layout',
             'mealTracker.meals',
+            'mealTracker.profiles',
             'mealTracker.utils'
             ]);
 

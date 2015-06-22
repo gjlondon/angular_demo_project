@@ -100,7 +100,6 @@
              * @desc Log "Epic failure!" to the console
              */
             function loginErrorFn(data, status, headers, config) {
-                console.log(data);
                 console.error('Epic failure!');
             }
         }

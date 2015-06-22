@@ -26,7 +26,7 @@ class AccountMealsViewSet(viewsets.ViewSet):
     serializer_class = MealSerializer
 
     def list(self, request, account_username=None):
-        queryset = self.queryset.filter(author__username=account_username)
+        queryset = self.queryset.filter(eater__username=account_username)
         serializer = self.serializer_class(queryset, many=True)
 
         return Response(serializer.data, content_type='application/json')

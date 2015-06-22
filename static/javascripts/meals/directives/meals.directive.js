@@ -20,7 +20,7 @@
     /**
     * @name directive
     * @desc The directive to be returned
-    * @memberOf mealTracker.meals.directives.Meals
+    * @memberOf mealTracker.meals.directives.meals
     */
     var directive = {
       controller: 'MealsController',
