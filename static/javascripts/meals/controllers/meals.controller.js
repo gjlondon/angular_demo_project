@@ -33,7 +33,8 @@
     */
     function activate() {
       $scope.$watchCollection(function () { return $scope.meals; }, render);
-      $scope.$watch(function () { return $(window).width(); }, render);
+        // TODO this requires a different render function
+      //$scope.$watch(function () { return $(window).width(); }, render);
     }
 
 
@@ -66,7 +67,8 @@
     */
     function approximateShortestColumn() {
       var scores = vm.columns.map(columnMapFn);
-
+      console.log(vm.columns);
+        console.log(scores);
       return scores.indexOf(Math.min.apply(this, scores));
 
 
@@ -77,15 +79,9 @@
       */
       function columnMapFn(column) {
         var lengths = column.map(function (element) {
-          if (element.content) {
-              return element.content.length;
-          }
-            else {
-              return 0
-          }
-        });
-
-        return lengths.reduce(sum, 0) * column.length;
+            return element.name.length + element.description.length
+          });
+          return lengths.reduce(sum, 0) * column.length;
       }
 
 
@@ -110,6 +106,8 @@
     * @memberOf mealTracker.meals.controllers.MealsController
     */
     function render(current, original) {
+      console.log(current);
+      console.log(original);
       if (current !== original) {
         vm.columns = [];
 

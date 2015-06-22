@@ -43,14 +43,18 @@
 
     /**
     * @name create
-    * @desc Create a new Post
-    * @param {string} content The content of the new Post
+    * @desc Create a new Meal
+    * @param {string} description The description of the new Meal
+     * @param {string} name The name of the new Meal
+     * @param {string} calories The calories of the new Meal
     * @returns {Promise}
     * @memberOf mealTracker.meals.services.Meals
     */
-    function create(content) {
+    function create(name, description, calories) {
       return $http.post('/api/v1/meals/', {
-        content: content
+          description: description,
+          name: name,
+          calories: calories
       });
     }
 

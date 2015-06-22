@@ -13,3 +13,9 @@
 .meal .meal__meta a:hover {
   text-decoration: none;
 }
+
+.btn-add-new-meal {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

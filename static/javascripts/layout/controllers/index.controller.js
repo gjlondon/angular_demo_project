@@ -48,7 +48,6 @@
       * @desc Update meals array on view
       */
       function mealsSuccessFn(data, status, headers, config) {
-        console.log(data)
           vm.meals = data.data;
       }
 
