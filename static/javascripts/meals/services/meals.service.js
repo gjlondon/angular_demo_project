@@ -64,13 +64,12 @@
      * @param date
      * @param time
      */
-    function create(name, description, calories, date, time) {
+    function create(name, description, calories, mealTime) {
       var mealData = {
         description: description,
         name: name,
         calories: calories,
-        meal_date: date,
-        meal_time: time
+        meal_time: mealTime
         };
       console.log(mealData);
         return $http.post('/api/v1/meals/', mealData);

@@ -12,10 +12,10 @@
                     </a>
                 </div>
                 <div class="meal__meal_date">
-                    <strong>Date: </strong>{{ meal.meal_date | date }}
+                    <strong>Date: </strong>{{ meal.meal_time | date:'MM/dd/yyyy' }}
                 </div>
                 <div class="meal__meal_time">
-                    <strong>time: </strong>{{ meal.meal_time }}
+                    <strong>time: </strong>{{ meal.meal_time | date:'h:mma' }}
                 </div>
 
                 <div class="meal__description">

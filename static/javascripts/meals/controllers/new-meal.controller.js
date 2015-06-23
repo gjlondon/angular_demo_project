@@ -43,11 +43,6 @@
       };
       vm.today();
 
-      vm.showWeeks = true;
-      vm.toggleWeeks = function () {
-          vm.showWeeks = ! vm.showWeeks;
-      };
-
       vm.clear = function () {
           vm.date = null;
       };
@@ -65,7 +60,29 @@
 
       vm.dateOptions = {
           'year-format': "'yy'",
-          'starting-day': 1
+          'starting-day': 1,
+          'show-weaks': false
+      };
+
+      vm.time = new Date();
+
+      vm.hstep = 1;
+      vm.mstep = 15;
+
+      vm.timeOptions = {
+          hstep: [1, 2, 3],
+          mstep: [1, 5, 10, 15, 25, 30]
+      };
+
+      vm.ismeridian = true;
+
+
+      vm.changed = function () {
+          console.log('Time changed to: ' + vm.time);
+      };
+
+      vm.clear = function() {
+          vm.time = null;
       };
 
       /**
@@ -77,11 +94,16 @@
 
 
           $scope.closeThisDialog();
+          // both the date and time pickers return a full Date object with both date and time parts.
+          // We want to keep the date from the date and the time from the time
+          // date strings have a nice format so string manipulation is actually a simpler way to combine them while
+          // preserving timezone info than trying to work with Date objects would be.
+          var formattedDate = moment(vm.date).format().split("T")[0];
+          var formattedTime = moment(vm.time).format().split("T")[1];
+          var mealTime = formattedDate + "T" + formattedTime;
+          console.log(mealTime);
 
-          var formattedDate = moment(vm.date).format('YYYY-MM-DD')
-          console.log(formattedDate);
-
-          Meals.create(vm.name, vm.description, vm.calories, formattedDate, vm.time).then(createMealSuccessFn, createMealErrorFn);
+          Meals.create(vm.name, vm.description, vm.calories, mealTime).then(createMealSuccessFn, createMealErrorFn);
 
 
       /**

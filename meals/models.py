@@ -10,10 +10,17 @@ class Meal(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     calories = models.IntegerField()
-    meal_date = models.DateField(default=timezone.now)
-    meal_time = models.TimeField(default=timezone.now)
+    meal_time = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return '{0}'.format(self.name)
+
+    @property
+    def time(self):
+        return self.meal_time.time()
+
+    @property
+    def date(self):
+        return self.meal_time.date()
