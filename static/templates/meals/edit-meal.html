@@ -1,6 +1,6 @@
 <form role="form" ng-submit="vm.submit()" ng-cloak>
     <div class="form-group">
-        <h3>New Meal</h3>
+        <h3>Edit Meal</h3>
         <label for="meal__name">Food</label>
         <input type="text" class="form-control" id="meal__name" placeholder="ex. Burger" ng-model="vm.name" required>
         <label for="meal__description">Description</label>
@@ -13,20 +13,24 @@
     </textarea>
         <label for="meal__calories">Calories</label>
 
-        <input type="number" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" required>
+        <input type="text" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" required>
 
     </div>
     <hr>
 
     <div style="margin-top:10px" class="form-horizontal">
         <label for="meal__meal_date">Date of Meal</label>
-        <input type="date"
+        <input type="text"
                id="meal__date"
-
-               ng-model="vm.date"
+               datepicker-popup="dd-MMMM-yyyy"
+               ng-model="vm.date" is-open="vm.opened"
+               min="vm.minDate"
+               show-weeks="false"
+               datepicker-options="vm.dateOptions"
+               date-disabled="vm.disabled(date, mode)"
                ng-required="true"
                 />
-
+        <button class="btn" type="button" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
     </div>
         <label for="meal__meal_date">Time of Meal</label>
     <timepicker ng-model="vm.time" ng-change="vm.changed()" hour-step="vm.hstep" minute-step="vm.mstep" show-meridian="vm.ismeridian"></timepicker>

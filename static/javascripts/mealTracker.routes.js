@@ -19,10 +19,6 @@
             controller: 'LoginController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/authentication/login.html'
-        }).when('/', {
-            controller: 'IndexController',
-            controllerAs: 'vm',
-            templateUrl: '/static/templates/layout/index.html'
         }).when('/+:username', {
             controller: 'ProfileController',
             controllerAs: 'vm',
@@ -31,6 +27,15 @@
             controller: 'ProfileSettingsController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/profiles/settings.html'
+        }).when('/edit/:mealId', {
+            controller: 'EditMealController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/meals/edit-meal.html'
+        })
+            .when('/', {
+            controller: 'IndexController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/layout/index.html'
         }).otherwise('/');
     }
 })();

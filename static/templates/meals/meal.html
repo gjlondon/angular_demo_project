@@ -4,12 +4,13 @@
             <div class="meal">
 
                 <div class="meal__meta">
-                    <div class="meal__name">
-                        <strong>Name: </strong>{{ meal.name }}
-                    </div>
+
                     <a href="/+{{ meal.eater.username }}">
                         +{{ meal.eater.username }}
                     </a>
+                </div>
+                <div class="meal__name">
+                    <strong>Name: </strong>{{ meal.name }}
                 </div>
                 <div class="meal__meal_date">
                     <strong>Date: </strong>{{ meal.meal_time | date:'MM/dd/yyyy' }}
@@ -24,6 +25,7 @@
                 <div class="meal__calories">
                     <strong>Calories: </strong> {{ meal.calories }}
                 </div>
+                <a href="/edit/{{ meal.id }}/"><button class="btn">Edit</button></a>
                 <delete-meal meal="meal"></delete-meal>
             </div>
         </div>
