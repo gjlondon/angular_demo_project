@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('EditMealController', EditMealController);
 
-    EditMealController.$inject = ['$rootScope', '$scope', '$timeout', '$routeParams', 'Authentication', 'Snackbar', 'Meals'];
+    EditMealController.$inject = ['$rootScope', '$scope', '$timeout', '$routeParams', '$location', 'Authentication', 'Snackbar', 'Meals'];
 
     /**
      * @namespace EditMealController
      */
-    function EditMealController($rootScope, $scope, $timeout, $routeParams, Authentication, Snackbar, Meals) {
+    function EditMealController($rootScope, $scope, $timeout, $routeParams, $location, Authentication, Snackbar, Meals) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -33,10 +33,9 @@
             var meal = data.data;
             vm.date = meal.meal_time;
             vm.name = meal.name;
-            vm.date = meal.meal_time;
+            vm.date = moment(meal.meal_time).toDate();
             vm.description = meal.description;
             vm.calories = meal.calories;
-            $location.url('/');
         }
 
         /**
@@ -91,6 +90,7 @@
                     eater: meal.eater,
                     id: meal.id
                 });
+                $location.url('/');
             }
 
 
