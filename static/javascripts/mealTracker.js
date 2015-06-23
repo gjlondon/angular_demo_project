@@ -8,7 +8,10 @@
             'mealTracker.layout',
             'mealTracker.meals',
             'mealTracker.profiles',
-            'mealTracker.utils'
+            'mealTracker.utils',
+            'ui.bootstrap',
+            'ui.date',
+            'ui.bootstrap.datetimepicker'
             ]);
 
     angular.module('mealTracker.config', []);

@@ -22,7 +22,11 @@
 
         function canDelete(meal) {
             var mealEater = meal.eater.username;
-            var currentEater = Authentication.getAuthenticatedAccount().username;
+            var authenticatedAccount = Authentication.getAuthenticatedAccount();
+            if (authenticatedAccount == null){
+                return false;
+            }
+            var currentEater = authenticatedAccount.username;
             return mealEater === currentEater;
         }
 

@@ -1,23 +1,37 @@
 <form role="form" ng-submit="vm.submit()">
-  <div class="form-group">
-    <h3>New Meal</h3>
-      <label for="meal__name">Food</label>
-      <input type="text" class="form-control" id="meal__name" placeholder="ex. Burger" ng-model="vm.name">
-    <label for="meal__description">Description</label>
+    <div class="form-group">
+        <h3>New Meal</h3>
+        <label for="meal__name">Food</label>
+        <input type="text" class="form-control" id="meal__name" placeholder="ex. Burger" ng-model="vm.name" required>
+        <label for="meal__description">Description</label>
       <textarea class="form-control"
-              id="meal_description"
-              rows="3" 
-              placeholder="ex. The best thing I've ever eaten!"
-              ng-model="vm.description">
+                id="meal_description"
+                rows="3"
+                placeholder="ex. The best thing I've ever eaten!"
+                ng-model="vm.description">
 
     </textarea>
-      <label for="meal__calories">Calories</label>
-      <input type="text" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories">
-  </div>
+        <label for="meal__calories">Calories</label>
 
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary">
-      Submit
-    </button>
-  </div>
+        <input type="text" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" required>
+
+    </div>
+    <hr>
+
+    <div style="margin-top:10px" class="form-horizontal">
+        <input type="text"
+               datepicker-popup="dd-MMMM-yyyy"
+               ng-model="vm.date" is-open="vm.opened"
+               min="vm.minDate"
+               datepicker-options="vm.dateOptions"
+               date-disabled="vm.disabled(date, mode)"
+               ng-required="true"
+                />
+        <button class="btn" type="button" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </div>
 </form>

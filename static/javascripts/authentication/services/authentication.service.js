@@ -80,7 +80,7 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function login(username, password) {
-
+            console.log('lgn');
             return $http.post('/api/v1/auth/login/', {
                 username: username, password: password
             }).then(loginSuccessFn, loginErrorFn);
@@ -113,12 +113,13 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function getAuthenticatedAccount() {
-            if (!$cookies.authenticatedAccount) {
-                console.log($cookies.authenticatedAccount)
+            var authenticatedAccount = $cookies.get('authenticatedAccount');
+            if (!authenticatedAccount) {
+                console.log(authenticatedAccount);
                 return;
             }
 
-            return JSON.parse($cookies.authenticatedAccount);
+            return JSON.parse(authenticatedAccount);
         }
 
         /**
@@ -128,7 +129,9 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function isAuthenticated() {
-            return $cookies.authenticatedAccount;
+            var authenticatedAccount = $cookies.get('authenticatedAccount');
+            console.log(authenticatedAccount);
+            return (authenticatedAccount != undefined && authenticatedAccount != null);
         }
 
         /**
@@ -139,7 +142,7 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function setAuthenticatedAccount(account) {
-            $cookies.authenticatedAccount = JSON.stringify(account);
+            $cookies.put('authenticatedAccount', JSON.stringify(account));
         }
 
         /**
@@ -149,7 +152,7 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function unauthenticate() {
-            delete $cookies.authenticatedAccount;
+            delete $cookies.remove('authenticatedAccount');
         }
 
         /**
@@ -159,6 +162,8 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function logout() {
+            Authentication.unauthenticate();
+            // TODO use djangular DjangoURL
             return $http.post('/api/v1/auth/logout/')
                 .then(logoutSuccessFn, logoutErrorFn);
 

@@ -19,3 +19,7 @@
   bottom: 20px;
   right: 20px;
 }
+
+.btn-info:not(.btn-link):not(.btn-flat) {
+ background-color: #a3a9f7;
+}

@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from django.utils import timezone
 from authentication.models import Account
 
 
@@ -9,7 +10,8 @@ class Meal(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     calories = models.IntegerField()
-
+    meal_date = models.DateField(default=timezone.now)
+    meal_time = models.TimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

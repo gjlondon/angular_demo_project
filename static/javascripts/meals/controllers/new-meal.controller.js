@@ -13,27 +13,75 @@
     .module('mealTracker.meals.controllers')
     .controller('NewMealController', NewMealController);
 
-  NewMealController.$inject = ['$rootScope', '$scope', 'Authentication', 'Snackbar', 'Meals'];
+  NewMealController.$inject = ['$rootScope', '$scope', '$timeout', 'Authentication', 'Snackbar', 'Meals'];
 
   /**
   * @namespace NewMealController
   */
-  function NewMealController($rootScope, $scope, Authentication, Snackbar, Meals) {
+  function NewMealController($rootScope, $scope, $timeout, Authentication, Snackbar, Meals) {
     var vm = this;
 
     vm.submit = submit;
 
-    /**
-    * @name submit
-    * @desc Create a new Meal
-    * @memberOf mealTracker.meals.controllers.NewMealController
-    */
-    function submit() {
+      /*
+      vm.dateOptions = {
+          startingDay: 1,
+          "year-range": 10
+    };
+        vm.dateTimeNow = function() {
+    vm.date = new Date();
+  };
+      vm.datePickerOptions = {
+          'max-mode': 'day',
+          'datepicker-append-to-body': 'datepicker-append-to-body'
+      };
+  vm.dateTimeNow();
+  */
+      vm.date = new Date();
+      vm.today = function() {
+          vm.date = new Date();
+      };
+      vm.today();
+
+      vm.showWeeks = true;
+      vm.toggleWeeks = function () {
+          vm.showWeeks = ! vm.showWeeks;
+      };
+
+      vm.clear = function () {
+          vm.date = null;
+      };
+
+      vm.toggleMin = function() {
+          vm.minDate = ( vm.minDate ) ? null : new Date();
+      };
+      vm.toggleMin();
+
+      vm.open = function() {
+          $timeout(function() {
+              vm.opened = true;
+          });
+      };
+
+      vm.dateOptions = {
+          'year-format': "'yy'",
+          'starting-day': 1
+      };
+
+      /**
+       * @name submit
+       * @desc Create a new Meal
+       * @memberOf mealTracker.meals.controllers.NewMealController
+       */
+      function submit() {
 
 
-      $scope.closeThisDialog();
+          $scope.closeThisDialog();
 
-      Meals.create(vm.name, vm.description, vm.calories).then(createMealSuccessFn, createMealErrorFn);
+          var formattedDate = moment(vm.date).format('YYYY-MM-DD')
+          console.log(formattedDate);
+
+          Meals.create(vm.name, vm.description, vm.calories, formattedDate, vm.time).then(createMealSuccessFn, createMealErrorFn);
 
 
       /**
@@ -46,6 +94,8 @@
           $rootScope.$broadcast('meal.created', {
               description: meal.description,
               calories: meal.calories,
+              meal_date: formattedDate,
+              meal_time: meal.time,
               name: meal.name,
               eater: meal.eater,
               id: meal.id
