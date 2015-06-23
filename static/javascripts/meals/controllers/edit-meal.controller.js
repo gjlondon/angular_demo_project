@@ -21,6 +21,7 @@
     function EditMealController($rootScope, $scope, $timeout, $routeParams, Authentication, Snackbar, Meals) {
         var vm = this;
 
+        vm.cancel = cancel;
         vm.mealId = $routeParams['mealId'];
         Meals.getMealById(vm.mealId).then(mealsSuccessFn, mealsErrorFn);
 
@@ -35,7 +36,7 @@
             vm.date = meal.meal_time;
             vm.description = meal.description;
             vm.calories = meal.calories;
-            console.log(meal);
+            $location.url('/');
         }
 
         /**
@@ -50,6 +51,10 @@
         vm.submit = submit;
         setupDatePicker();
         setupTimePicker();
+
+        function cancel() {
+            $location.url('/');
+        }
 
         /**
          * @name submit

@@ -20,21 +20,17 @@
 
     <div style="margin-top:10px" class="form-horizontal">
         <label for="meal__meal_date">Date of Meal</label>
-        <input type="text"
+               <input type="date"
                id="meal__date"
-               datepicker-popup="dd-MMMM-yyyy"
-               ng-model="vm.date" is-open="vm.opened"
-               min="vm.minDate"
-               show-weeks="false"
-               datepicker-options="vm.dateOptions"
-               date-disabled="vm.disabled(date, mode)"
+
+               ng-model="vm.date"
                ng-required="true"
                 />
-        <button class="btn" type="button" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
     </div>
         <label for="meal__meal_date">Time of Meal</label>
     <timepicker ng-model="vm.time" ng-change="vm.changed()" hour-step="vm.hstep" minute-step="vm.mstep" show-meridian="vm.ismeridian"></timepicker>
     <div class="form-group">
+        <button class="btn btn-danger" type="button" ng-click="vm.cancel()"><i class="glyphicon glyphicon-cancel"></i></button>
         <button type="submit" class="btn btn-primary">
             Submit
         </button>
