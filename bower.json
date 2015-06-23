@@ -23,6 +23,7 @@
     "jquery-ui": "~1.11.4",
     "angular-ui-date": ">=0.0.8",
     "angular-ui-bootstrap-datetimepicker": ">=0.11.2",
-    "moment": ""
+    "moment": "",
+    "datetimeRangePicker": ""
   }
 }

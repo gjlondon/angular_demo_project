@@ -11,7 +11,8 @@
             'mealTracker.utils',
             'ui.bootstrap',
             'ui.date',
-            'ui.bootstrap.datetimepicker'
+            'ui.bootstrap.datetimepicker',
+            'rgkevin.datetimeRangePicker'
             ]);
 
     angular.module('mealTracker.config', []);

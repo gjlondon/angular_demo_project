@@ -23,3 +23,12 @@
 .btn-info:not(.btn-link):not(.btn-flat) {
  background-color: #a3a9f7;
 }
+
+.clean-calendar .btn:not(.btn-link):not(.btn-flat), .btn-default:not(.btn-link):not(.btn-flat) {
+  margin: 0;
+  padding: 0;
+}
+
+.clean-calendar > table .text-info {
+  color: #1655db;
+}

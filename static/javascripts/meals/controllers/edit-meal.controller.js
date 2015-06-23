@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('EditMealController', EditMealController);
 
-    EditMealController.$inject = ['$rootScope', '$scope', '$timeout', '$routeParams', '$location', 'Authentication', 'Snackbar', 'Meals'];
+    EditMealController.$inject = ['$rootScope', '$scope', '$timeout', '$routeParams', '$location', 'Authentication', 'Snackbar', 'Meals', "Helpers"];
 
     /**
      * @namespace EditMealController
      */
-    function EditMealController($rootScope, $scope, $timeout, $routeParams, $location, Authentication, Snackbar, Meals) {
+    function EditMealController($rootScope, $scope, $timeout, $routeParams, $location, Authentication, Snackbar, Meals, Helpers) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -66,9 +66,7 @@
             // We want to keep the date from the date and the time from the time
             // date strings have a nice format so string manipulation is actually a simpler way to combine them while
             // preserving timezone info than trying to work with Date objects would be.
-            var formattedDate = moment(vm.date).format().split("T")[0];
-            var formattedTime = moment(vm.time).format().split("T")[1];
-            var mealTime = formattedDate + "T" + formattedTime;
+            var mealTime = Helpers.mergeDateAndTime(vm.date, vm.time);
             console.log(mealTime);
 
             Meals.update(vm.mealId, vm.name, vm.description, vm.calories, mealTime).then(updateMealSuccessFn, updateMealErrorFn);
