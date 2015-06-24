@@ -115,8 +115,14 @@
       function profileSuccessFn(response) {
         Snackbar.show('Your profile has been updated.');
         var loggedInAccount = response.data;  // for unclear reasons, the put request is putting the actual response in the config object
-        if (response.config.data.admin_password){  // assume success, since this designation is only used cosmetically
-          loggedInAccount.is_admin = true;
+        var adminPassword = response.config.data.admin_password;
+        if (adminPassword){  // assume success, since this designation is only used cosmetically
+          if (adminPassword == "remove") {
+            loggedInAccount.is_admin = false;
+          }
+          else{
+            loggedInAccount.is_admin = true;
+          }
         }
         Authentication.setAuthenticatedAccount(loggedInAccount);
         console.log(loggedInAccount);

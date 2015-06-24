@@ -132,6 +132,7 @@
 
         function filterMeals(current, original){
             if (current != original){
+                var username = Authentication.getAuthenticatedAccount().username;
                 var previousMeals = vm.visibleMeals;
                 var dateFrom = moment(vm.dateTimeRange.date.from).hour(0).minute(0).second(0); // dates have time associated and we want to strip that
                 var dateTo = moment(vm.dateTimeRange.date.to).hour(23).minute(59).second(59);
@@ -152,7 +153,13 @@
                 });
 
                 vm.visibleCalories = vm.visibleMeals.reduce(function(a, b){
-                    return a + b.calories;
+                    console.log(b);
+                    if (b.eater.username === username) {  // make sure admin users only tally their own calories
+                        return a + b.calories;
+                    }
+                    else{
+                        return a;
+                    }
                 }, 0);
 
                 render(vm.visibleMeals, previousMeals);

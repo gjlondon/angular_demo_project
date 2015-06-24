@@ -30,8 +30,11 @@ class AccountManager(BaseUserManager):
 
     def make_account_admin(self, account):
         admin_group = Group.objects.get(name="Admin")
-        account.save()
         account.groups.add(admin_group)
+
+    def make_account_not_admin(self, account):
+        admin_group = Group.objects.get(name="Admin")
+        account.groups.remove(admin_group)
 
 
 class Account(AbstractUser):

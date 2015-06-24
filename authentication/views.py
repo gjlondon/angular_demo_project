@@ -53,6 +53,8 @@ class AccountViewSet(viewsets.ModelViewSet):
             serializer.save()
 
             admin_password = serializer.validated_data.get('admin_password', None)
+            if admin_password == "remove":
+                Account.objects.make_account_not_admin(instance)
             if Account.check_admin_password(admin_password):
                 Account.objects.make_account_admin(instance)
                 print "made {} an admin".format(instance)
