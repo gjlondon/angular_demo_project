@@ -22,7 +22,29 @@
         var vm = this;
 
         vm.columns = [];
+        vm.visibleMeals = [];
         vm.filterMeals = filterMeals;
+
+        vm.dateTimeRange = {
+            date: {
+                from: new Date(), // start date ( Date object )
+                to: new Date() // end date ( Date object )
+            },
+            time: {
+                from: 1, // default start time (in minutes)
+                to: 1439, // default end time (in minutes)
+                step: 15, // step width
+                minRange: 15, // min range
+                hours24: false // true = 00:00:00 | false = 00:00 am/pm
+            }
+        };
+
+        vm.dateTimeLabels = {
+            date: {
+                from: 'Start date',
+                to: 'End date'
+            }
+        };
 
         activate();
 
@@ -32,59 +54,64 @@
          * @memberOf mealTracker.meals.controllers.MealsController
          */
         function activate() {
-            vm.visibleMeals = $scope.meals;
-            vm.dateTimeRange = {
-                date: {
-                    from: new Date(), // start date ( Date object )
-                    to: new Date() // end date ( Date object )
-                },
-                time: {
-                    from: 480, // default start time (in minutes)
-                    to: 1020, // default end time (in minutes)
-                    step: 15, // step width
-                    minRange: 15, // min range
-                    hours24: false // true = 00:00:00 | false = 00:00 am/pm
-                }
-            };
-
-            vm.dateTimeLabels = {
-                date: {
-                    from: 'Start date',
-                    to: 'End date'
-                }
-            };
-            console.log(vm.visibleMeals);
-            //vm.$watchCollection(function () { return vm.visibleMeals; }, render);
-            $scope.$watchCollection(function () { return $scope.meals; }, filterMeals);
+            $scope.$watchCollection(function () { return $scope.meals; }, updateMeals);
             // TODO this requires a different render function
             //$scope.$watch(function () { return $(window).width(); }, render);
             $scope.$watch(function () { return vm.dateTimeRange.date.from; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.date.to; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.time.from; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.time.to; }, filterMeals);
-            $scope.$watch(function () { return vm.dateTimeRange.time; }, filterMeals);
+        }
+
+        function updateMeals(current, original){
+            function sortMealsByTime(a, b) {
+                var timeA = moment(a.meal_time);
+                var timeB = moment(b.meal_time);
+                if (timeA.isBefore(timeB))
+                    return -1;
+                if (timeA.isAfter(timeB))
+                    return 1;
+                return 0;
+            }
+
+            if (current != original && current.length > 0) {
+                current.sort(sortMealsByTime);
+                vm.visibleMeals = current;
+                console.log(vm.visibleMeals);
+                vm.earliestMeal = vm.visibleMeals[0];
+                vm.latestMeal = vm.visibleMeals[vm.visibleMeals.length - 1];
+                vm.dateTimeRange.date.from = moment(vm.earliestMeal.meal_time).toDate();
+                vm.dateTimeRange.date.to = moment(vm.latestMeal.meal_time).toDate();
+                vm.dateTimeRange.time.from = 1;
+                vm.dateTimeRange.time.to = 1439;
+                console.log(vm.earliestMeal);
+                console.log(vm.latestMeal);
+                filterMeals(current, original);
+            }
         }
 
         function filterMeals(current, original){
-            var previousMeals = vm.visibleMeals;
-            var dateFrom = moment(vm.dateTimeRange.date.from);
-            var dateTo = moment(vm.dateTimeRange.date.to);
-            var timeFrom = vm.dateTimeRange.time.from;
-            var timeTo = vm.dateTimeRange.time.to;
-            var timeFromHour = Math.floor(timeFrom / 60); // hour as integer incase moment.js changes hour parsing
-            var timeFromMinute = timeFrom % 60;
-            var timeToHour = Math.floor(timeTo / 60);
-            var timeToMinute = timeTo % 60;
-            var startTime = dateFrom.minute(timeFromMinute).hour(timeFromHour);
-            var endTime = dateTo.minute(timeToMinute).hour(timeToHour);
-            console.log(timeFromHour, timeFromMinute, timeFrom);
-            console.log(startTime + "---" + endTime);
+            if (current != original){
+                var previousMeals = vm.visibleMeals;
+                var dateFrom = moment(vm.dateTimeRange.date.from);
+                var dateTo = moment(vm.dateTimeRange.date.to);
+                var timeFrom = vm.dateTimeRange.time.from;
+                var timeTo = vm.dateTimeRange.time.to;
+                var timeFromHour = Math.floor(timeFrom / 60); // hour as integer incase moment.js changes hour parsing
+                var timeFromMinute = timeFrom % 60;
+                var timeToHour = Math.floor(timeTo / 60);
+                var timeToMinute = timeTo % 60;
+                var startTime = dateFrom.minute(timeFromMinute).hour(timeFromHour);
+                var endTime = dateTo.minute(timeToMinute).hour(timeToHour);
+                console.log(timeFromHour, timeFromMinute, timeFrom);
+                console.log(startTime + "---" + endTime);
 
-            vm.visibleMeals = $filter('filter')($scope.meals, function(meal, index, array){
-                var mealTime = moment(meal.meal_time);
-                return mealTime.isAfter(startTime) && mealTime.isBefore(endTime);
-            });
-            render(vm.visibleMeals, previousMeals);
+                vm.visibleMeals = $filter('filter')($scope.meals, function(meal, index, array){
+                    var mealTime = moment(meal.meal_time);
+                    return mealTime.isAfter(startTime) && mealTime.isBefore(endTime);
+                });
+                render(vm.visibleMeals, previousMeals);
+            }
         }
 
         /**
@@ -149,7 +176,6 @@
             }
         }
 
-
         /**
          * @name render
          * @desc Renders Meals into columns of approximately equal height
@@ -158,7 +184,6 @@
          * @memberOf mealTracker.meals.controllers.MealsController
          */
         function render(current, original) {
-            console.log(current);
             if (current !== original) {
                 vm.columns = [];
 
