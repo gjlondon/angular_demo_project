@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('MealsController', MealsController);
 
-    MealsController.$inject = ['$scope', '$filter', "$location", "$timeout", "Helpers", "Profile", "Authentication"];
+    MealsController.$inject = ['$scope', '$filter', "$location", "$timeout", "Profile", "Authentication"];
 
     /**
      * @namespace MealsController
      */
-    function MealsController($scope, $filter, $location, $timeout, Helpers, Profile, Authentication) {
+    function MealsController($scope, $filter, $location, $timeout, Profile, Authentication) {
         var vm = this;
 
         vm.columns = [];

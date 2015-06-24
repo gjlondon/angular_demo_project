@@ -92,8 +92,7 @@
                 $rootScope.$broadcast('meal.updated', {
                     description: meal.description,
                     calories: meal.calories,
-                    meal_date: formattedDate,
-                    meal_time: meal.time,
+                    meal_time: mealTime,
                     name: meal.name,
                     eater: meal.eater,
                     id: meal.id
