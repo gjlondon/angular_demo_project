@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8c7dcdb5-791b-4028-af8a-f0dd5d25fd5c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/meals/delete-meal.html" afterPath="$PROJECT_DIR$/static/templates/meals/delete-meal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/meals/meal.html" afterPath="$PROJECT_DIR$/static/templates/meals/meal.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meals/permissions.py" afterPath="$PROJECT_DIR$/meals/permissions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meals/views.py" afterPath="$PROJECT_DIR$/meals/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/meals/meals.html" afterPath="$PROJECT_DIR$/static/templates/meals/meals.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/stylesheets/styles.css" afterPath="$PROJECT_DIR$/static/stylesheets/styles.css" />
     </list>
     <ignored path="thinkster-django-angular-boilerplate.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,17 +38,17 @@
         <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="48" column="10" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="10" />
+              <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bower.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bower.json">
+      <file leaf-file-name="delete-meal.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/templates/meals/delete-meal.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.0">
-              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="75" selection-start-line="0" selection-start-column="75" selection-end-line="0" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -66,8 +67,40 @@
       <file leaf-file-name="meals.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/templates/meals/meals.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.625">
-              <caret line="1" column="76" selection-start-line="1" selection-start-column="76" selection-end-line="1" selection-end-column="76" />
+            <state vertical-scroll-proportion="-0.88235295">
+              <caret line="3" column="86" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="86" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="meal.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/templates/meals/meal.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-16.875">
+              <caret line="27" column="82" selection-start-line="27" selection-start-column="82" selection-end-line="27" selection-end-column="82" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="delete-meal.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="styles.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/stylesheets/styles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.60420316">
+              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -95,10 +128,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit-meal.controller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit-meal.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.71404684">
+            <state vertical-scroll-proportion="0.0">
               <caret line="99" column="35" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
               <folding />
             </state>
@@ -136,7 +169,6 @@
         <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/datepicker.controller.js" />
         <option value="$PROJECT_DIR$/meals/serializers.py" />
         <option value="$PROJECT_DIR$/meals/models.py" />
-        <option value="$PROJECT_DIR$/static/templates/meals/delete-meal.html" />
         <option value="$PROJECT_DIR$/static/templates/meals/edit-meal.html" />
         <option value="$PROJECT_DIR$/static/templates/meals/new-meal.html" />
         <option value="$PROJECT_DIR$/bower.json" />
@@ -147,7 +179,6 @@
         <option value="$PROJECT_DIR$/static/javascripts/utils/services/helpers.service.js" />
         <option value="$PROJECT_DIR$/templates/javascripts.html" />
         <option value="$PROJECT_DIR$/static/javascripts/profiles/controllers/profile.controller.js" />
-        <option value="$PROJECT_DIR$/static/stylesheets/styles.css" />
         <option value="$PROJECT_DIR$/static/templates/profiles/settings.html" />
         <option value="$USER_HOME$/.virtualenvs/freelance.toptal.assessment/lib/python2.7/site-packages/rest_framework/mixins.py" />
         <option value="$PROJECT_DIR$/authentication/models.py" />
@@ -160,19 +191,21 @@
         <option value="$PROJECT_DIR$/static/javascripts/authentication/services/authentication.service.js" />
         <option value="$PROJECT_DIR$/authentication/views.py" />
         <option value="$PROJECT_DIR$/static/javascripts/profiles/controllers/profile-settings.controller.js" />
-        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js" />
         <option value="$PROJECT_DIR$/meal_tracker/settings.py" />
         <option value="$PROJECT_DIR$/meal_tracker/urls.py" />
         <option value="$PROJECT_DIR$/meals/views.py" />
-        <option value="$PROJECT_DIR$/static/templates/meals/meal.html" />
         <option value="$PROJECT_DIR$/authentication/serializers.py" />
-        <option value="$PROJECT_DIR$/static/templates/meals/meals.html" />
         <option value="$PROJECT_DIR$/static/bower_components/venturocket-angular-slider/build/angular-slider.js" />
         <option value="$PROJECT_DIR$/static/bower_components/venturocket-angular-slider/build/angular-slider.min.js" />
-        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js" />
         <option value="$PROJECT_DIR$/meals/permissions.py" />
         <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" />
         <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" />
+        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js" />
+        <option value="$PROJECT_DIR$/static/templates/meals/meals.html" />
+        <option value="$PROJECT_DIR$/static/templates/meals/delete-meal.html" />
+        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js" />
+        <option value="$PROJECT_DIR$/static/templates/meals/meal.html" />
+        <option value="$PROJECT_DIR$/static/stylesheets/styles.css" />
       </list>
     </option>
   </component>
@@ -1243,14 +1276,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/stylesheets/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/profiles/settings.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0">
@@ -1391,36 +1416,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/templates/meals/delete-meal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="88" selection-start-line="0" selection-start-column="88" selection-end-line="0" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/javascripts/meals/directives/meal.directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25083613">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/templates/meals/meal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7055749">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1473,14 +1472,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/templates/meals/meals.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="1" column="76" selection-start-line="1" selection-start-column="76" selection-end-line="1" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bower.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.0">
@@ -1501,14 +1492,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.481482">
           <caret line="1800" column="32" selection-start-line="1800" selection-start-column="32" selection-end-line="1802" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="10" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1541,8 +1524,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71404684">
+        <state vertical-scroll-proportion="0.0">
           <caret line="99" column="35" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/meals/delete-meal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="75" selection-start-line="0" selection-start-column="75" selection-end-line="0" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/meals/meals.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.88235295">
+          <caret line="3" column="86" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/meals/meal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.875">
+          <caret line="27" column="82" selection-start-line="27" selection-start-column="82" selection-end-line="27" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/stylesheets/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60420316">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
           <folding />
         </state>
       </provider>

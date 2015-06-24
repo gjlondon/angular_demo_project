@@ -11,24 +11,12 @@
         .module('mealTracker.meals.controllers')
         .controller('DeleteMealController', DeleteMealController);
 
-    DeleteMealController.$inject = ['$rootScope', '$scope', 'Authentication', 'Snackbar', 'Meals'];
+    DeleteMealController.$inject = ['$rootScope', '$scope', 'Snackbar', 'Meals'];
 
-    function DeleteMealController($rootScope, $scope, Authentication, Snackbar, Meals) {
+    function DeleteMealController($rootScope, $scope, Snackbar, Meals) {
         var vm = this;
 
         vm.deleteMeal = deleteMeal;
-
-        vm.canDelete = canDelete;
-
-        function canDelete(meal) {
-            var mealEater = meal.eater.username;
-            var authenticatedAccount = Authentication.getAuthenticatedAccount();
-            if (authenticatedAccount == null){
-                return false;
-            }
-            var currentEater = authenticatedAccount.username;
-            return mealEater === currentEater;
-        }
 
         /**
          * @name deleteMeal

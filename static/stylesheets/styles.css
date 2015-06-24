@@ -20,6 +20,11 @@
     right: 20px;
 }
 
+.meal-edit-button {
+    border: 1px solid black;
+}
+
+
 .btn-info:not(.btn-link):not(.btn-flat) {
     background-color: #a3a9f7;
 }
