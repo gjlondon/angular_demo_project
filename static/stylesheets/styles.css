@@ -32,3 +32,18 @@
 .clean-calendar > table .text-info {
   color: #1655db;
 }
+
+div.rg-range-picker-calendars > div.rg-range-picker-calendar-box div table thead tr:nth-child(1) button.pull-left {
+  /*
+  the left chevron on the angular-ui datepicker is broken, but it's not necessary since the user can click the month name to change.
+  this is a smaller fix than modifying the datepicker code, which would require either locally copying the code and losing out on updates
+  or maintaining a fork
+  */
+  display: none;
+}
+
+div.rg-range-picker-calendars > div.rg-range-picker-calendar-box div table thead tr:nth-child(1) button.pull-right {
+  /* for symmetry with missing left chevron above */
+  display: none;
+}
+

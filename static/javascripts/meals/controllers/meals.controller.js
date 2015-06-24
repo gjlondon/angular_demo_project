@@ -74,18 +74,45 @@
                 return 0;
             }
 
+            function sortMealsByTime(a, b) {
+                var timeA = moment(a.meal_time);
+                var timeB = moment(b.meal_time);
+                if (timeA.isBefore(timeB))
+                    return -1;
+                if (timeA.isAfter(timeB))
+                    return 1;
+                return 0;
+            }
+
+            function findDateRangeOfMeals(meals){
+                var earliestDate = moment();
+                var latestDate = moment();
+                for (var i = 0; i < meals.length; i++) {
+                    var mealTime = moment(meals[i].meal_time);
+                    if (mealTime.isBefore(earliestDate)){
+                        earliestDate = mealTime;
+                    }
+                    if (mealTime.isAfter(latestDate)){
+                        latestDate = mealTime;
+                    }
+                }
+                return {
+                    'latestDate': latestDate,
+                    'earliestDate': earliestDate
+                };
+            }
+
             if (current != original && current.length > 0) {
                 current.sort(sortMealsByTime);
                 vm.visibleMeals = current;
                 console.log(vm.visibleMeals);
-                vm.earliestMeal = vm.visibleMeals[0];
-                vm.latestMeal = vm.visibleMeals[vm.visibleMeals.length - 1];
-                vm.dateTimeRange.date.from = moment(vm.earliestMeal.meal_time).toDate();
-                vm.dateTimeRange.date.to = moment(vm.latestMeal.meal_time).toDate();
+                var mealDateRange = findDateRangeOfMeals(vm.visibleMeals);
+                vm.dateTimeRange.date.from = mealDateRange.earliestDate;
+                vm.dateTimeRange.date.to = mealDateRange.latestDate;
                 vm.dateTimeRange.time.from = 1;
                 vm.dateTimeRange.time.to = 1439;
-                console.log(vm.earliestMeal);
-                console.log(vm.latestMeal);
+                console.log(vm.earliestMealDate);
+                console.log(vm.latestMealDate);
                 filterMeals(current, original);
             }
         }
@@ -93,22 +120,17 @@
         function filterMeals(current, original){
             if (current != original){
                 var previousMeals = vm.visibleMeals;
-                var dateFrom = moment(vm.dateTimeRange.date.from);
-                var dateTo = moment(vm.dateTimeRange.date.to);
+                var dateFrom = moment(vm.dateTimeRange.date.from).hour(0).minute(0).second(0); // dates have time associated and we want to strip that
+                var dateTo = moment(vm.dateTimeRange.date.to).hour(23).minute(59).second(59);
                 var timeFrom = vm.dateTimeRange.time.from;
                 var timeTo = vm.dateTimeRange.time.to;
-                var timeFromHour = Math.floor(timeFrom / 60); // hour as integer incase moment.js changes hour parsing
-                var timeFromMinute = timeFrom % 60;
-                var timeToHour = Math.floor(timeTo / 60);
-                var timeToMinute = timeTo % 60;
-                var startTime = dateFrom.minute(timeFromMinute).hour(timeFromHour);
-                var endTime = dateTo.minute(timeToMinute).hour(timeToHour);
-                console.log(timeFromHour, timeFromMinute, timeFrom);
-                console.log(startTime + "---" + endTime);
-
                 vm.visibleMeals = $filter('filter')($scope.meals, function(meal, index, array){
-                    var mealTime = moment(meal.meal_time);
-                    return mealTime.isAfter(startTime) && mealTime.isBefore(endTime);
+                    var mealDate = moment(meal.meal_time);
+                    var mealTime = mealDate.hours() * 60 + mealDate.minutes();
+                    
+                    var withinDates = mealDate.isAfter(dateFrom) && mealDate.isBefore(dateTo);
+                    var withinTimes = mealTime >= timeFrom && mealTime <= timeTo;
+                    return withinDates && withinTimes;
                 });
                 render(vm.visibleMeals, previousMeals);
             }
