@@ -47,6 +47,22 @@ div.rg-range-picker-calendars > div.rg-range-picker-calendar-box div table thead
     display: none;
 }
 
+#ngdialog1 > div.ngdialog-content > form > div.form-horizontal > ul > li:nth-child(1) > div > table > thead > tr:nth-child(1) > th:nth-child(1) > button
+{
+    /*
+    the left chevron on the angular-ui datepicker is broken, but it's not necessary since the user can click the month name to change.
+    this is a smaller fix than modifying the datepicker code, which would require either locally copying the code and losing out on updates
+    or maintaining a fork
+    */
+    display: none;
+}
+
+#ngdialog1 > div.ngdialog-content > form > div.form-horizontal > ul > li:nth-child(1) > div > table > thead > tr:nth-child(1) > th:nth-child(3) > button {
+    /* for symmetry with missing left chevron above */
+    display: none;
+}
+
+
 #calorieTargetMessage.redCalories{
     color: red;
 }

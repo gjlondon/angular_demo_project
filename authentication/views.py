@@ -1,5 +1,5 @@
 import json
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.shortcuts import render
 
 # Create your views here.
@@ -39,6 +39,31 @@ class AccountViewSet(viewsets.ModelViewSet):
             'status': 'Bad request',
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+
+        username = kwargs.get("username", None)
+        if username:
+            instance = Account.objects.get(username=username)
+            serializer = self.serializer_class(instance, data=request.data, partial=True)
+        else:
+            serializer = self.serializer_class(data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            admin_password = serializer.validated_data.get('admin_password', None)
+            if Account.check_admin_password(admin_password):
+                Account.objects.make_account_admin(instance)
+                print "made {} an admin".format(instance)
+
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+        return Response({
+            'status': 'Bad request',
+            'message': 'Account could not be created with received data.'
+        }, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class LoginView(views.APIView):

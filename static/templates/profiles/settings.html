@@ -17,13 +17,13 @@
       </div>
 
       <div class="form-group">
-        <label for="settings__username">Username</label>
-        <input type="text" class="form-control" id="settings__username" ng-model="vm.profile.username" placeholder="ex. notgoogleplus" />
-      </div>
-
-      <div class="form-group">
         <label for="settings__calorie_target">Daily Calorie Target</label>
         <input type="number" class="form-control" id="settings__calorie_target" ng-model="vm.profile.calorie_target" placeholder="ex. 3000" />
+      </div>
+
+        <div class="form-group">
+        <label for="settings__username">To make this user an Admin, enter the admin password</label>
+        <input type="password" class="form-control" id="settings__password" ng-model="vm.profile.admin_password" placeholder="ex. i_administer" />
       </div>
 
       <div class="form-group">

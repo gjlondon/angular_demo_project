@@ -83,8 +83,6 @@
 
             var mealTime = Helpers.mergeDateAndTime(vm.date, vm.time);
 
-            console.log(mealTime);
-
             Meals.create(vm.name, vm.description, vm.calories, mealTime).then(createMealSuccessFn, createMealErrorFn);
 
 

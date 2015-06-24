@@ -13,13 +13,13 @@
         .module('mealTracker.authentication.services')
         .factory('Authentication', Authentication);
 
-    Authentication.$inject = ['$cookies', '$http', '$location', 'Snackbar'];
+    Authentication.$inject = ['$cookies', '$http', '$location', "$rootScope", 'Snackbar'];
 
     /**
      * @namespace Authentication
      * @returns {Factory}
      */
-    function Authentication($cookies, $http, $location, Snackbar) {
+    function Authentication($cookies, $http, $location, $rootScope, Snackbar) {
         /**
          * @name Authentication
          * @desc The Factory to be returned
@@ -80,7 +80,6 @@
          * @memberOf mealTracker.authentication.services.Authentication
          */
         function login(username, password) {
-            console.log('lgn');
             return $http.post('/api/v1/auth/login/', {
                 username: username, password: password
             }).then(loginSuccessFn, loginErrorFn);
@@ -90,10 +89,10 @@
              * @desc Set the authenticated account and redirect to index
              */
             function loginSuccessFn(data, status, headers, config) {
-                Authentication.setAuthenticatedAccount(data.data);
-                // TODO this might count as a page refresh
+                var loggedInAccount = data.data;
+                Authentication.setAuthenticatedAccount(loggedInAccount);
+                $rootScope.$broadcast('account.login', loggedInAccount);
                 $location.url('/');
-
             }
 
             /**
@@ -115,7 +114,6 @@
         function getAuthenticatedAccount() {
             var authenticatedAccount = $cookies.get('authenticatedAccount');
             if (!authenticatedAccount) {
-                console.log(authenticatedAccount);
                 return;
             }
 
@@ -130,7 +128,6 @@
          */
         function isAuthenticated() {
             var authenticatedAccount = $cookies.get('authenticatedAccount');
-            console.log(authenticatedAccount);
             return (authenticatedAccount != undefined && authenticatedAccount != null);
         }
 
@@ -173,8 +170,8 @@
              */
             function logoutSuccessFn(data, status, headers, config) {
                 Authentication.unauthenticate();
-                // TODO this might count as a page refresh
-                $location.url('/');
+                $rootScope.$broadcast('account.logout', {});
+                $location.url('/login');
             }
 
             /**

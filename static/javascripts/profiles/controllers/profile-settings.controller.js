@@ -14,13 +14,13 @@
     .controller('ProfileSettingsController', ProfileSettingsController);
 
   ProfileSettingsController.$inject = [
-    '$location', '$routeParams', 'Authentication', 'Profile', 'Snackbar'
+    '$location', '$routeParams', "$rootScope", 'Authentication', 'Profile', 'Snackbar'
   ];
 
   /**
   * @namespace ProfileSettingsController
   */
-  function ProfileSettingsController($location, $routeParams, Authentication, Profile, Snackbar) {
+  function ProfileSettingsController($location, $routeParams, $rootScope, Authentication, Profile, Snackbar) {
     var vm = this;
 
     vm.destroy = destroy;
@@ -77,25 +77,24 @@
     * @memberOf mealTracker.profiles.controllers.ProfileSettingsController
     */
     function destroy() {
-      Profile.destroy(vm.profile).then(profileSuccessFn, profileErrorFn);
+      Profile.destroy(vm.profile).then(profileDestroySuccessFn, profileDestroyErrorFn);
 
       /**
-      * @name profileSuccessFn
+      * @name profileDestroySuccessFn
       * @desc Redirect to index and display success snackbar
       */
-      function profileSuccessFn(data, status, headers, config) {
+      function profileDestroySuccessFn(data, status, headers, config) {
         Authentication.unauthenticate();
-        $location.url = '/';
-
+        $location.url('/');
         Snackbar.show('Your account has been deleted.');
       }
 
 
       /**
-      * @name profileErrorFn
+      * @name profileDestroyErrorFn
       * @desc Display error snackbar
       */
-      function profileErrorFn(data, status, headers, config) {
+      function profileDestroyErrorFn(data, status, headers, config) {
         Snackbar.error(data.error);
       }
     }
@@ -113,8 +112,16 @@
       * @name profileSuccessFn
       * @desc Show success snackbar
       */
-      function profileSuccessFn(data, status, headers, config) {
+      function profileSuccessFn(response) {
         Snackbar.show('Your profile has been updated.');
+        var loggedInAccount = response.data;  // for unclear reasons, the put request is putting the actual response in the config object
+        if (response.config.data.admin_password){  // assume success, since this designation is only used cosmetically
+          loggedInAccount.is_admin = true;
+        }
+        Authentication.setAuthenticatedAccount(loggedInAccount);
+        console.log(loggedInAccount);
+
+        $rootScope.$broadcast('account.updated', loggedInAccount);
         $location.url("/");
       }
 

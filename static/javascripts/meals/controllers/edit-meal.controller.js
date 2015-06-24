@@ -67,7 +67,6 @@
             // date strings have a nice format so string manipulation is actually a simpler way to combine them while
             // preserving timezone info than trying to work with Date objects would be.
             var mealTime = Helpers.mergeDateAndTime(vm.date, vm.time);
-            console.log(mealTime);
 
             Meals.update(vm.mealId, vm.name, vm.description, vm.calories, mealTime).then(updateMealSuccessFn, updateMealErrorFn);
 

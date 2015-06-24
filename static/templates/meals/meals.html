@@ -1,22 +1,28 @@
-<div class="row" ng-cloak>
-<div class="col-sm-offset-1" rg-range-picker="vm.dateTimeRange" labels="vm.dateTimeLabels"></div>
+<div class="row" ng-cloak ng-show="vm.profile">
+    <div class="col-sm-offset-1" rg-range-picker="vm.dateTimeRange" labels="vm.dateTimeLabels"></div>
     <p class="col-sm-10 col-sm-offset-1 well" id="calorieTargetMessage"
-       ng-show="vm.profile" ng-class="{greenCalories: vm.targetCaloriesForPeriod > vm.visibleCalories, redCalories: vm.targetCaloriesForPeriod <= vm.visibleCalories}">
+        ng-class="{greenCalories: vm.targetCaloriesForPeriod > vm.visibleCalories, redCalories: vm.targetCaloriesForPeriod <= vm.visibleCalories}">
         Calories in interval: {{ vm.visibleCalories }};
         Target Calories For Visible Period: {{ vm.targetCaloriesForPeriod | number: 0}};
         Daily Calorie Target: <a href="/+{{ vm.profile.username }}/settings">{{  vm.dailyCalorieTarget }} (update in settings)</a>
     </p>
     <div ng-repeat="column in vm.columns">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <div ng-repeat="meal in column">
-          <meal meal="meal"></meal>
-      </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div ng-repeat="meal in column">
+                <meal meal="meal"></meal>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div ng-hide="vm.columns && vm.columns.length">
-    <div class="col-sm-12 no-meals-here">
-      <em>The are no meals here.</em>
+    <div ng-hide="vm.columns && vm.columns.length">
+        <div class="col-sm-12 no-meals-here">
+            <em>The are no meals here.</em>
+        </div>
     </div>
-  </div>
+</div>
+
+<div ng-hide="vm.profile">
+    <div class="col-sm-12">
+        <em>Please login.</em>
+    </div>
 </div>

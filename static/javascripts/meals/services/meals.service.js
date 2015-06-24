@@ -72,7 +72,7 @@
         calories: calories,
         meal_time: mealTime
         };
-      console.log(mealData);
+
         return $http.post('/api/v1/meals/', mealData);
     }
 
@@ -93,7 +93,7 @@
         calories: calories,
         meal_time: mealTime
         };
-      console.log(mealData);
+
         return $http.put('/api/v1/meals/' + mealId + "/", mealData);
     }
 

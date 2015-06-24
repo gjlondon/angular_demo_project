@@ -13,15 +13,29 @@
     .module('mealTracker.layout.controllers')
     .controller('NavbarController', NavbarController);
 
-  NavbarController.$inject = ['$scope', 'Authentication'];
+  NavbarController.$inject = ['$scope', "$location", 'Authentication'];
 
   /**
   * @namespace NavbarController
   */
-  function NavbarController($scope, Authentication) {
+  function NavbarController($scope, $location, Authentication) {
     var vm = this;
 
     vm.logout = logout;
+    vm.account = Authentication.getAuthenticatedAccount();
+    console.log(vm.account);
+
+    $scope.$on('account.login', function (event, meal) {
+        vm.account = Authentication.getAuthenticatedAccount();
+      });
+
+    $scope.$on('account.logout', function (event, meal) {
+        vm.account = null;
+      });
+
+    $scope.$on('account.updated', function (event, meal) {
+        vm.account = Authentication.getAuthenticatedAccount();
+      });
 
     /**
     * @name logout
@@ -30,6 +44,7 @@
     */
     function logout() {
       Authentication.logout();
+      $location.url('/login');
     }
   }
 })();

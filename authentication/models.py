@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, Group, AbstractUser
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
 
@@ -22,12 +24,14 @@ class AccountManager(BaseUserManager):
 
     def create_superuser(self, email, password, **kwargs):
         account = self.create_user(email, password, **kwargs)
+        self.make_account_admin(account)
 
+        return account
+
+    def make_account_admin(self, account):
         admin_group = Group.objects.get(name="Admin")
         account.save()
         account.groups.add(admin_group)
-
-        return account
 
 
 class Account(AbstractUser):
@@ -46,3 +50,16 @@ class Account(AbstractUser):
 
     def get_short_name(self):
         return self.first_name
+
+    @staticmethod
+    def check_admin_password(password):
+        return password == settings.ADMIN_PASSWORD
+
+    @property
+    def is_admin(self):
+        try:
+            self.groups.get(name="Admin")
+            return True
+        except ObjectDoesNotExist:
+            return False
+

@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('MealsController', MealsController);
 
-    MealsController.$inject = ['$scope', '$filter', "Helpers", "Profile", "Authentication"];
+    MealsController.$inject = ['$scope', '$filter', "$location", "Helpers", "Profile", "Authentication"];
 
     /**
      * @namespace MealsController
      */
-    function MealsController($scope, $filter, Helpers, Profile, Authentication) {
+    function MealsController($scope, $filter, $location, Helpers, Profile, Authentication) {
         var vm = this;
 
         vm.columns = [];
@@ -34,8 +34,8 @@
                 to: new Date() // end date ( Date object )
             },
             time: {
-                from: 1, // default start time (in minutes)
-                to: 1439, // default end time (in minutes)
+                from: 200, // default start time (in minutes)
+                to: 1200, // default end time (in minutes)
                 step: 15, // step width
                 minRange: 15, // min range
                 hours24: false // true = 00:00:00 | false = 00:00 am/pm
@@ -48,7 +48,13 @@
             }
         };
 
-        activate();
+        if (Authentication.isAuthenticated()){
+            activate();
+        }
+        else{
+            $location.url("/login");
+        }
+
 
         /**
          * @name activate
@@ -103,12 +109,11 @@
 
             function setDateFilterRange() {
                 vm.visibleMeals = current;
-                console.log(vm.visibleMeals);
                 var mealDateRange = findDateRangeOfMeals(vm.visibleMeals);
                 vm.dateTimeRange.date.from = mealDateRange.earliestDate;
                 vm.dateTimeRange.date.to = mealDateRange.latestDate;
-                vm.dateTimeRange.time.from = 1;
-                vm.dateTimeRange.time.to = 1439;
+                //vm.dateTimeRange.time.from = 1;
+                //vm.dateTimeRange.time.to = 1435;
             }
 
             if (current != original && current.length > 0) {
@@ -125,7 +130,9 @@
                 var dateTo = moment(vm.dateTimeRange.date.to).hour(23).minute(59).second(59);
                 var timeFrom = vm.dateTimeRange.time.from;
                 var timeTo = vm.dateTimeRange.time.to;
-                vm.visibleInterval = (dateTo.unix() - dateFrom.unix()) / 60 / 60 / 24; // unix time gap in seconds, converted to hours
+                var daysInInterval = (dateTo.unix() - dateFrom.unix()) / 60 / 60 / 24; // unix time gap in seconds, converted to days
+                var hoursPerDay = ((timeTo - timeFrom) / 60);
+                vm.visibleInterval = daysInInterval * hoursPerDay / 24; // in days
 
                 vm.visibleMeals = $filter('filter')($scope.meals, function(meal, index, array){
 
@@ -136,10 +143,8 @@
                     var withinTimes = mealTime >= timeFrom && mealTime <= timeTo;
                     return withinDates && withinTimes;
                 });
-                console.log(vm.visibleMeals);
+
                 vm.visibleCalories = vm.visibleMeals.reduce(function(a, b){
-                    console.log(a);
-                    console.log(b.calories);
                     return a + b.calories;
                 }, 0);
 
@@ -158,7 +163,6 @@
             function profileSuccessFn(data, status, headers, config) {
                 vm.profile = data.data;
                 vm.dailyCalorieTarget = vm.profile.calorie_target;
-                console.log(vm.dailyCalorieTarget);
             }
 
             /**
