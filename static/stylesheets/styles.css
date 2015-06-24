@@ -1,49 +1,56 @@
 .no-meals-here {
-  text-align: center;
+    text-align: center;
 }
 
 .meal {}
 
 .meal .meal__meta {
-  font-weight: bold;
-  text-align: right;
-  padding-bottom: 19px;
+    font-weight: bold;
+    text-align: right;
+    padding-bottom: 19px;
 }
 
 .meal .meal__meta a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .btn-add-new-meal {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }
 
 .btn-info:not(.btn-link):not(.btn-flat) {
- background-color: #a3a9f7;
+    background-color: #a3a9f7;
 }
 
 .clean-calendar .btn:not(.btn-link):not(.btn-flat), .btn-default:not(.btn-link):not(.btn-flat) {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .clean-calendar > table .text-info {
-  color: #1655db;
+    color: #1655db;
 }
 
 div.rg-range-picker-calendars > div.rg-range-picker-calendar-box div table thead tr:nth-child(1) button.pull-left {
-  /*
-  the left chevron on the angular-ui datepicker is broken, but it's not necessary since the user can click the month name to change.
-  this is a smaller fix than modifying the datepicker code, which would require either locally copying the code and losing out on updates
-  or maintaining a fork
-  */
-  display: none;
+    /*
+    the left chevron on the angular-ui datepicker is broken, but it's not necessary since the user can click the month name to change.
+    this is a smaller fix than modifying the datepicker code, which would require either locally copying the code and losing out on updates
+    or maintaining a fork
+    */
+    display: none;
 }
 
 div.rg-range-picker-calendars > div.rg-range-picker-calendar-box div table thead tr:nth-child(1) button.pull-right {
-  /* for symmetry with missing left chevron above */
-  display: none;
+    /* for symmetry with missing left chevron above */
+    display: none;
 }
 
+#calorieTargetMessage.redCalories{
+    color: red;
+}
+
+#calorieTargetMessage.greenCalories {
+    color: green;
+}

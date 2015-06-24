@@ -13,18 +13,21 @@
         .module('mealTracker.meals.controllers')
         .controller('MealsController', MealsController);
 
-    MealsController.$inject = ['$scope', '$filter', "Helpers"];
+    MealsController.$inject = ['$scope', '$filter', "Helpers", "Profile", "Authentication"];
 
     /**
      * @namespace MealsController
      */
-    function MealsController($scope, $filter, Helpers) {
+    function MealsController($scope, $filter, Helpers, Profile, Authentication) {
         var vm = this;
 
         vm.columns = [];
         vm.visibleMeals = [];
         vm.filterMeals = filterMeals;
-
+        vm.profile = undefined;
+        vm.visibleCalories = 0;
+        vm.targetCaloriesForPeriod = 0;
+        vm.dailyCalorieTarget = 0;
         vm.dateTimeRange = {
             date: {
                 from: new Date(), // start date ( Date object )
@@ -38,7 +41,6 @@
                 hours24: false // true = 00:00:00 | false = 00:00 am/pm
             }
         };
-
         vm.dateTimeLabels = {
             date: {
                 from: 'Start date',
@@ -54,26 +56,23 @@
          * @memberOf mealTracker.meals.controllers.MealsController
          */
         function activate() {
+            retrieveProfile();
             $scope.$watchCollection(function () { return $scope.meals; }, updateMeals);
             // TODO this requires a different render function
             //$scope.$watch(function () { return $(window).width(); }, render);
+            $scope.$watch(function () { return vm.visibleInterval }, updateTargetIntervalCalories);
+            $scope.$watch(function () { return vm.dailyCalorieTarget }, updateTargetIntervalCalories);
             $scope.$watch(function () { return vm.dateTimeRange.date.from; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.date.to; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.time.from; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.time.to; }, filterMeals);
         }
 
-        function updateMeals(current, original){
-            function sortMealsByTime(a, b) {
-                var timeA = moment(a.meal_time);
-                var timeB = moment(b.meal_time);
-                if (timeA.isBefore(timeB))
-                    return -1;
-                if (timeA.isAfter(timeB))
-                    return 1;
-                return 0;
-            }
+        function updateTargetIntervalCalories(current, original){
+            vm.targetCaloriesForPeriod = vm.visibleInterval * vm.dailyCalorieTarget;
+        }
 
+        function updateMeals(current, original){
             function sortMealsByTime(a, b) {
                 var timeA = moment(a.meal_time);
                 var timeB = moment(b.meal_time);
@@ -102,8 +101,7 @@
                 };
             }
 
-            if (current != original && current.length > 0) {
-                current.sort(sortMealsByTime);
+            function setDateFilterRange() {
                 vm.visibleMeals = current;
                 console.log(vm.visibleMeals);
                 var mealDateRange = findDateRangeOfMeals(vm.visibleMeals);
@@ -111,8 +109,11 @@
                 vm.dateTimeRange.date.to = mealDateRange.latestDate;
                 vm.dateTimeRange.time.from = 1;
                 vm.dateTimeRange.time.to = 1439;
-                console.log(vm.earliestMealDate);
-                console.log(vm.latestMealDate);
+            }
+
+            if (current != original && current.length > 0) {
+                current.sort(sortMealsByTime);
+                setDateFilterRange();
                 filterMeals(current, original);
             }
         }
@@ -124,7 +125,10 @@
                 var dateTo = moment(vm.dateTimeRange.date.to).hour(23).minute(59).second(59);
                 var timeFrom = vm.dateTimeRange.time.from;
                 var timeTo = vm.dateTimeRange.time.to;
+                vm.visibleInterval = (dateTo.unix() - dateFrom.unix()) / 60 / 60 / 24; // unix time gap in seconds, converted to hours
+
                 vm.visibleMeals = $filter('filter')($scope.meals, function(meal, index, array){
+
                     var mealDate = moment(meal.meal_time);
                     var mealTime = mealDate.hours() * 60 + mealDate.minutes();
                     
@@ -132,7 +136,38 @@
                     var withinTimes = mealTime >= timeFrom && mealTime <= timeTo;
                     return withinDates && withinTimes;
                 });
+                console.log(vm.visibleMeals);
+                vm.visibleCalories = vm.visibleMeals.reduce(function(a, b){
+                    console.log(a);
+                    console.log(b.calories);
+                    return a + b.calories;
+                }, 0);
+
                 render(vm.visibleMeals, previousMeals);
+            }
+        }
+
+        function retrieveProfile(){
+            var username = Authentication.getAuthenticatedAccount().username;
+            Profile.get(username).then(profileSuccessFn, profileErrorFn);
+
+            /**
+             * @name profileSuccessProfile
+             * @desc Update `profile` on viewmodel
+             */
+            function profileSuccessFn(data, status, headers, config) {
+                vm.profile = data.data;
+                vm.dailyCalorieTarget = vm.profile.calorie_target;
+                console.log(vm.dailyCalorieTarget);
+            }
+
+            /**
+             * @name profileErrorFn
+             * @desc Redirect to index and show error Snackbar
+             */
+            function profileErrorFn(data, status, headers, config) {
+                $location.url('/');
+                Snackbar.error('That user does not exist.');
             }
         }
 

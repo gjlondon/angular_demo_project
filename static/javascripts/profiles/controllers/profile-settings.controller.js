@@ -115,6 +115,7 @@
       */
       function profileSuccessFn(data, status, headers, config) {
         Snackbar.show('Your profile has been updated.');
+        $location.url("/");
       }
 
 
