@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('MealsController', MealsController);
 
-    MealsController.$inject = ['$scope', '$filter', "$location", "Helpers", "Profile", "Authentication"];
+    MealsController.$inject = ['$scope', '$filter', "$location", "$timeout", "Helpers", "Profile", "Authentication"];
 
     /**
      * @namespace MealsController
      */
-    function MealsController($scope, $filter, $location, Helpers, Profile, Authentication) {
+    function MealsController($scope, $filter, $location, $timeout, Helpers, Profile, Authentication) {
         var vm = this;
 
         vm.columns = [];
@@ -47,6 +47,13 @@
                 to: 'End date'
             }
         };
+
+        // venture-rock-angular-slider has a known bug where it misdraws the slider if it's not present on page load
+        // so we need to wait until the page is drawn and then set the boundaries for it to appear correctly
+        $timeout(function() {
+            vm.dateTimeRange.time.from = 1;
+            vm.dateTimeRange.time.to = 1439;
+        });
 
         if (Authentication.isAuthenticated()){
             activate();

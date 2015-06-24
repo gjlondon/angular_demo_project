@@ -7,7 +7,6 @@ from meals.serializers import MealSerializer
 
 
 class MealViewSet(viewsets.ModelViewSet):
-    queryset = Meal.objects.order_by('-created_at')
     serializer_class = MealSerializer
 
     def get_permissions(self):
@@ -19,14 +18,9 @@ class MealViewSet(viewsets.ModelViewSet):
         instance = serializer.save(eater=self.request.user)
         return super(MealViewSet, self).perform_create(serializer)
 
-
-
-class AccountMealsViewSet(viewsets.ViewSet):
-    queryset = Meal.objects.select_related('eater').all()
-    serializer_class = MealSerializer
-
-    def list(self, request, account_username=None):
-        queryset = self.queryset.filter(eater__username=account_username)
-        serializer = self.serializer_class(queryset, many=True)
-
-        return Response(serializer.data, content_type='application/json')
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_admin:
+            return Meal.objects.order_by('-created_at')
+        else:
+            return Meal.objects.filter(eater=user).order_by('-created_at')

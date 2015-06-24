@@ -22,9 +22,20 @@
         var vm = this;
 
         vm.cancel = cancel;
+        vm.canEdit = canEdit;
         vm.mealId = $routeParams['mealId'];
         Meals.getMealById(vm.mealId).then(mealsSuccessFn, mealsErrorFn);
 
+        function canEdit(meal) {
+            console.log(meal)
+            var mealEater = meal.eater.username;
+            var authenticatedAccount = Authentication.getAuthenticatedAccount();
+            if (authenticatedAccount == null){
+                return false;
+            }
+            var currentEater = authenticatedAccount.username;
+            return mealEater === currentEater;
+        }
         /**
          * @name mealsSucessFn
          * @desc Update `meals` on viewmodel

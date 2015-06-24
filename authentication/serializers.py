@@ -22,6 +22,7 @@ class AccountSerializer(serializers.ModelSerializer):
         def create(self, validated_data):
             return Account.objects.create(**validated_data)
 
+        """
         def update(self, instance, validated_data):
 
             instance.save()
@@ -39,3 +40,4 @@ class AccountSerializer(serializers.ModelSerializer):
             update_session_auth_hash(self.context.get('request'), instance)
 
             return instance
+        """
