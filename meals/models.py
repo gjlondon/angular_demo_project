@@ -16,11 +16,3 @@ class Meal(models.Model):
 
     def __unicode__(self):
         return '{0}'.format(self.name)
-
-    @property
-    def time(self):
-        return self.meal_time.time()
-
-    @property
-    def date(self):
-        return self.meal_time.date()

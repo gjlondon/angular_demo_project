@@ -18,12 +18,9 @@ class MealSerializer(serializers.ModelSerializer):
                   'description',
                   'calories',
                   "meal_time",
-                  "date",
-                  "time"
                   )
-        read_only_fields = ('id', 'created_at', 'updated_at', "date", "time")
+        read_only_fields = ('id', 'created_at', 'updated_at')
 
     def get_validation_exclusions(self, *args, **kwargs):
         exclusions = super(MealSerializer, self).get_validation_exclusions()
-
         return exclusions + ['eater']

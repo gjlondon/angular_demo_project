@@ -10,8 +10,6 @@ class MealViewSet(viewsets.ModelViewSet):
     serializer_class = MealSerializer
 
     def get_permissions(self):
-        if self.request.method in permissions.SAFE_METHODS:
-            return (permissions.AllowAny(),)
         return (permissions.IsAuthenticated(), IsEaterOfMealOrAdmin(),)
 
     def perform_create(self, serializer):
@@ -21,6 +19,6 @@ class MealViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.is_admin:
-            return Meal.objects.order_by('-created_at')
+            return Meal.objects.order_by('-meal_time')
         else:
-            return Meal.objects.filter(eater=user).order_by('-created_at')
+            return Meal.objects.filter(eater=user).order_by('-meal_time')
