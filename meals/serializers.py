@@ -1,8 +1,7 @@
 __author__ = 'rogueleaderr'
-
 from rest_framework import serializers
 
-from authentication.serializers import Account, AccountSerializer
+from authentication.serializers import AccountSerializer
 from meals.models import Meal
 
 

@@ -1,6 +1,6 @@
 import json
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.shortcuts import render
+
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -57,7 +57,6 @@ class AccountViewSet(viewsets.ModelViewSet):
                     Account.objects.make_account_not_admin(instance)
                 if Account.check_admin_password(admin_password):
                     Account.objects.make_account_admin(instance)
-                    print "made {} an admin".format(instance)
 
                 return Response(serializer.data, status=status.HTTP_200_OK)
 

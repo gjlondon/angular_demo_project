@@ -1,5 +1,4 @@
 from rest_framework import permissions, viewsets
-from rest_framework.response import Response
 
 from meals.models import Meal
 from meals.permissions import IsEaterOfMealOrAdmin
