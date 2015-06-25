@@ -1,25 +1,36 @@
-describe('MealsController', function() {
+describe('Unit: MealsController', function() {
   beforeEach(module('mealTracker'));
 
   var $controller;
+  var $scope;
+  var vm;
 
-  beforeEach(inject(function(_$controller_){
+  beforeEach(inject(function($rootScope, _$controller_){
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
+    $scope = $rootScope.$new();
   }));
 
-  describe('it fails', function() {
-    var $scope, controller;
+  describe('ViewModel', function() {
 
     beforeEach(function() {
-      $scope = {};
-      controller = $controller('MealsController', { $scope: $scope });
+
+      vm = $controller('MealsController', { $scope: $scope });
+      $scope.vm = vm;
+      $scope.meals = [];
+      vm.activate();
+      $scope.$digest();
     });
 
-    it('sets the strength to "strong" if the password length is >8 chars', function() {
-      //$scope.password = 'longerthaneightchars';
-      //$scope.grade();
-      expect(5).toEqual('strong');
+    it('it updates visible meals when meals in scope changes', function() {
+      var sampleMeals = [
+        {"name": "Burger", "calories": 500},
+        {"name": "Pizza", "calories": 500},
+        {"name": "Hotdog", "calories": 500}
+        ];
+      $scope.meals = sampleMeals;
+      $scope.$digest();
+      expect(vm.visibleMeals).toEqual(sampleMeals);
     });
 
       it('wins life', function() {

@@ -27,7 +27,8 @@
       controllerAs: 'vm',
       restrict: 'E',
       scope: {
-        meals: '='
+        meals: '=',
+        profile: '='
       },
       templateUrl: '/static/templates/meals/meals.html'
     };

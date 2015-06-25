@@ -27,10 +27,9 @@
             controller: 'EditMealController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/meals/edit-meal.html'
-        })
-            .when('/', {
+        }).when('/', {
             controller: 'IndexController',
-            controllerAs: 'vm',
+            controllerAs: 'indexVM',
             templateUrl: '/static/templates/layout/index.html'
         }).otherwise('/');
     }

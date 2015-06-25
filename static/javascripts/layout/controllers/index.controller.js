@@ -3,68 +3,95 @@
  */
 
 /**
-* IndexController
-* @namespace mealTracker.layout.controllers
-*/
+ * IndexController
+ * @namespace mealTracker.layout.controllers
+ */
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-    .module('mealTracker.layout.controllers')
-    .controller('IndexController', IndexController);
+    angular
+        .module('mealTracker.layout.controllers')
+        .controller('IndexController', IndexController);
 
-  IndexController.$inject = ['$scope', 'Authentication', 'Meals', 'Snackbar'];
-
-  /**
-  * @namespace IndexController
-  */
-  function IndexController($scope, Authentication, Meals, Snackbar) {
-    var vm = this;
-
-    vm.isAuthenticated = Authentication.isAuthenticated();
-    vm.meals = [];
-
-    activate();
+    IndexController.$inject = ['$scope', 'Authentication', 'Meals', 'Snackbar', 'Profile'];
 
     /**
-    * @name activate
-    * @desc Actions to be performed when this controller is instantiated
-    * @memberOf mealTracker.layout.controllers.IndexController
-    */
-    function activate() {
-      Meals.all().then(mealsSuccessFn, mealsErrorFn);
+     * @namespace IndexController
+     */
+    function IndexController($scope, Authentication, Meals, Snackbar, Profile) {
+        var vm = this;
 
-      $scope.$on('meal.created', function (event, meal) {
-        vm.meals.unshift(meal);
-      });
+        vm.isAuthenticated = Authentication.isAuthenticated();
+        vm.meals = [];
+        vm.profile = {};
 
-      $scope.$on('meal.deleted', function (event, meal) {
-        var idx;
-        idx = vm.meals.indexOf(meal);
-        return vm.meals.splice(idx, 1);
-      });
+        activate();
 
-      $scope.$on('meal.created.error', function () {
-        vm.meals.shift();
-      });
+        /**
+         * @name activate
+         * @desc Actions to be performed when this controller is instantiated
+         * @memberOf mealTracker.layout.controllers.IndexController
+         */
+        function activate() {
+            Meals.all().then(mealsSuccessFn, mealsErrorFn);
+
+            $scope.$on('meal.created', function (event, meal) {
+                vm.meals.unshift(meal);
+            });
+
+            $scope.$on('meal.deleted', function (event, meal) {
+                var idx;
+                idx = vm.meals.indexOf(meal);
+                return vm.meals.splice(idx, 1);
+            });
+
+            $scope.$on('meal.created.error', function () {
+                vm.meals.shift();
+            });
+
+            if (vm.isAuthenticated){
+                retrieveProfile();
+            }
+
+            /**
+             * @name mealsSuccessFn
+             * @desc Update meals array on view
+             */
+            function mealsSuccessFn(data, status, headers, config) {
+                vm.meals = data.data;
+            }
 
 
-      /**
-      * @name mealsSuccessFn
-      * @desc Update meals array on view
-      */
-      function mealsSuccessFn(data, status, headers, config) {
-          vm.meals = data.data;
-      }
+            /**
+             * @name mealsErrorFn
+             * @desc Show snackbar with error
+             */
+            function mealsErrorFn(data, status, headers, config) {
+                Snackbar.error(data.error);
+            }
+        }
 
+        function retrieveProfile(){
+            var username = Authentication.getAuthenticatedAccount().username;
+            Profile.get(username).then(profileSuccessFn, profileErrorFn);
 
-      /**
-      * @name mealsErrorFn
-      * @desc Show snackbar with error
-      */
-      function mealsErrorFn(data, status, headers, config) {
-        Snackbar.error(data.error);
-      }
+            /**
+             * @name profileSuccessProfile
+             * @desc Update `profile` on viewmodel
+             */
+            function profileSuccessFn(data, status, headers, config) {
+                vm.profile = data.data;
+            }
+
+            /**
+             * @name profileErrorFn
+             * @desc Redirect to index and show error Snackbar
+             */
+            function profileErrorFn(data, status, headers, config) {
+                Authentication.logout();
+                $location.url('/login');
+                Snackbar.error('That user does not exist.');
+            }
+        }
     }
-  }
 })();

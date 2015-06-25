@@ -22,6 +22,7 @@ module.exports = function(config){
             'static/bower_components/bootstrap-material-design/dist/js/ripples.js',
             'static/bower_components/underscore/underscore.js',
             'static/lib/snackbarjs/snackbar.min.js',
+            'static/bower_components/moment/min/moment.min.js',
             //'static/javascripts/tests/*.js',
 
             //'static/javascripts/**/*.js',

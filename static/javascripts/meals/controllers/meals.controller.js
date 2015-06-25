@@ -24,44 +24,30 @@
         vm.columns = [];
         vm.visibleMeals = [];
         vm.filterMeals = filterMeals;
-        vm.profile = undefined;
-        vm.visibleCalories = 0;
-        vm.targetCaloriesForPeriod = 0;
-        vm.dailyCalorieTarget = 0;
-        vm.dateTimeRange = {
-            date: {
-                from: new Date(), // start date ( Date object )
-                to: new Date() // end date ( Date object )
-            },
-            time: {
-                from: 200, // default start time (in minutes)
-                to: 1200, // default end time (in minutes)
-                step: 15, // step width
-                minRange: 15, // min range
-                hours24: false // true = 00:00:00 | false = 00:00 am/pm
-            }
-        };
-        vm.dateTimeLabels = {
-            date: {
-                from: 'Start date',
-                to: 'End date'
-            }
-        };
+        vm.activate = activate;
+        vm.activate();
 
-        // venture-rock-angular-slider has a known bug where it misdraws the slider if it's not present on page load
-        // so we need to wait until the page is drawn and then set the boundaries for it to appear correctly
-        $timeout(function() {
-            vm.dateTimeRange.time.from = 1;
-            vm.dateTimeRange.time.to = 1439;
-        });
-
-        if (Authentication.isAuthenticated()){
-            activate();
+        function configureDateRangePicker() {
+            vm.dateTimeRange = {
+                date: {
+                    from: new Date(), // start date ( Date object )
+                    to: new Date() // end date ( Date object )
+                },
+                time: {
+                    from: 200, // default start time (in minutes)
+                    to: 1200, // default end time (in minutes)
+                    step: 15, // step width
+                    minRange: 15, // min range
+                    hours24: false // true = 00:00:00 | false = 00:00 am/pm
+                }
+            };
+            vm.dateTimeLabels = {
+                date: {
+                    from: 'Start date',
+                    to: 'End date'
+                }
+            };
         }
-        else{
-            $location.url("/login");
-        }
-
 
         /**
          * @name activate
@@ -69,8 +55,21 @@
          * @memberOf mealTracker.meals.controllers.MealsController
          */
         function activate() {
-            retrieveProfile();
+
+            configureDateRangePicker();
+            vm.visibleCalories = 0;
+            vm.targetCaloriesForPeriod = 0;
+            vm.dailyCalorieTarget = $scope.profile.calorie_target;
+
+            // venture-rock-angular-slider has a known bug where it misdraws the slider if it's not present on page load
+            // so we need to wait until the page is drawn and then set the boundaries for it to appear correctly
+            $timeout(function() {
+                vm.dateTimeRange.time.from = 1;
+                vm.dateTimeRange.time.to = 1439;
+            });
+
             $scope.$watchCollection(function () { return $scope.meals; }, updateMeals);
+            $scope.$watchCollection(function () { return $scope.profile; }, updateDailyCalorieTarget);
             // TODO this requires a different render function
             //$scope.$watch(function () { return $(window).width(); }, render);
             $scope.$watch(function () { return vm.visibleInterval }, updateTargetIntervalCalories);
@@ -79,10 +78,17 @@
             $scope.$watch(function () { return vm.dateTimeRange.date.to; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.time.from; }, filterMeals);
             $scope.$watch(function () { return vm.dateTimeRange.time.to; }, filterMeals);
+            console.log("ACTIVATE");
         }
 
         function updateTargetIntervalCalories(current, original){
             vm.targetCaloriesForPeriod = vm.visibleInterval * vm.dailyCalorieTarget;
+        }
+
+        function updateDailyCalorieTarget(){
+            vm.dailyCalorieTarget = $scope.profile.calorie_target;
+            console.log("SET cal targ to " + vm.dailyCalorieTarget);
+            filterMeals($scope.meals, []);
         }
 
         function updateMeals(current, original){
@@ -122,8 +128,11 @@
                 //vm.dateTimeRange.time.from = 1;
                 //vm.dateTimeRange.time.to = 1435;
             }
-
+            console.log("UPDATE MEALS");
+            console.log("C" + current);
+            console.log("O" + original);
             if (current != original && current.length > 0) {
+                console.log(current);
                 current.sort(sortMealsByTime);
                 setDateFilterRange();
                 filterMeals(current, original);
@@ -132,7 +141,8 @@
 
         function filterMeals(current, original){
             if (current != original){
-                var username = Authentication.getAuthenticatedAccount().username;
+                var username = $scope.profile.username;
+                console.log("filter on " + username);
                 var previousMeals = vm.visibleMeals;
                 var dateFrom = moment(vm.dateTimeRange.date.from).hour(0).minute(0).second(0); // dates have time associated and we want to strip that
                 var dateTo = moment(vm.dateTimeRange.date.to).hour(23).minute(59).second(59);
@@ -153,7 +163,6 @@
                 });
 
                 vm.visibleCalories = vm.visibleMeals.reduce(function(a, b){
-                    console.log(b);
                     if (b.eater.username === username) {  // make sure admin users only tally their own calories
                         return a + b.calories;
                     }
@@ -166,28 +175,7 @@
             }
         }
 
-        function retrieveProfile(){
-            var username = Authentication.getAuthenticatedAccount().username;
-            Profile.get(username).then(profileSuccessFn, profileErrorFn);
 
-            /**
-             * @name profileSuccessProfile
-             * @desc Update `profile` on viewmodel
-             */
-            function profileSuccessFn(data, status, headers, config) {
-                vm.profile = data.data;
-                vm.dailyCalorieTarget = vm.profile.calorie_target;
-            }
-
-            /**
-             * @name profileErrorFn
-             * @desc Redirect to index and show error Snackbar
-             */
-            function profileErrorFn(data, status, headers, config) {
-                $location.url('/');
-                Snackbar.error('That user does not exist.');
-            }
-        }
 
         /**
          * @name render
