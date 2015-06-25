@@ -18,6 +18,10 @@ class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
+    def get_queryset(self):
+        user = self.request.user
+        return Account.objects.filter(id=user.id)
+
     def get_permissions(self):
         if self.request.method == 'POST':
             return (permissions.AllowAny(),)
@@ -34,7 +38,8 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         return Response({
             'status': 'Bad request',
-            'message': 'Account could not be created with received data.'
+            'message': 'Account could not be created with received data.',
+            'errors': json.dumps(serializer.errors)
         }, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
@@ -42,21 +47,19 @@ class AccountViewSet(viewsets.ModelViewSet):
         username = kwargs.get("username", None)
         if username:
             instance = Account.objects.get(username=username)
+            self.check_object_permissions(self.request, instance)
             serializer = self.serializer_class(instance, data=request.data, partial=True)
-        else:
-            serializer = self.serializer_class(data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
 
-        if serializer.is_valid():
-            serializer.save()
+                admin_password = serializer.validated_data.get('admin_password', None)
+                if admin_password == "remove":
+                    Account.objects.make_account_not_admin(instance)
+                if Account.check_admin_password(admin_password):
+                    Account.objects.make_account_admin(instance)
+                    print "made {} an admin".format(instance)
 
-            admin_password = serializer.validated_data.get('admin_password', None)
-            if admin_password == "remove":
-                Account.objects.make_account_not_admin(instance)
-            if Account.check_admin_password(admin_password):
-                Account.objects.make_account_admin(instance)
-                print "made {} an admin".format(instance)
-
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+                return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response({
             'status': 'Bad request',

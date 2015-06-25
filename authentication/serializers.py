@@ -20,3 +20,24 @@ class AccountSerializer(serializers.ModelSerializer):
 
         def create(self, validated_data):
             return Account.objects.create(**validated_data)
+
+        def update(self, instance, validated_data):
+            """
+            Allows updating password because Django Rest Framework cannot set it directly.
+
+            :param instance:
+            :param validated_data:
+            :return:
+            """
+            instance.save()
+
+            password = validated_data.get('password', None)
+            confirm_password = validated_data.get('confirm_password', None)
+
+            if password and confirm_password and password == confirm_password:
+                instance.set_password(password)
+                instance.save()
+
+            update_session_auth_hash(self.context.get('request'), instance)
+
+            return instance

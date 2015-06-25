@@ -6,15 +6,22 @@ from django.contrib.auth.models import BaseUserManager
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **kwargs):
+    def create_user(self, **kwargs):
+        
+        email = kwargs.get('email')
         if not email:
             raise ValueError('Users must have a valid email address.')
 
-        if not kwargs.get('username'):
+        username = kwargs.get('username')
+        if not username:
             raise ValueError('Users must have a valid username.')
+        
+        password = kwargs.get('password')
+        if not password:
+            raise ValueError('Users must have a valid password.')
 
         account = self.model(
-            email=self.normalize_email(email), username=kwargs.get('username')
+            email=self.normalize_email(email), username=username
         )
 
         account.set_password(password)
@@ -22,8 +29,8 @@ class AccountManager(BaseUserManager):
 
         return account
 
-    def create_superuser(self, email, password, **kwargs):
-        account = self.create_user(email, password, **kwargs)
+    def create_superuser(self, **kwargs):
+        account = self.create_user(**kwargs)
         self.make_account_admin(account)
 
         return account
