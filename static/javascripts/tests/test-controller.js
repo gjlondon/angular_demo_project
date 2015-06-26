@@ -126,6 +126,17 @@ describe('Unit: MealsController', function() {
             expect(visibleMeals).toEqual($scope.meals.slice(3,4));
         });
 
+        it('it updates the meal filters when dateTimeRange changes', function () {
+            var midDate = moment(testData.sampleMediumMealTime);
+
+            vm.dateTimeRange.date.from = midDate.toDate();
+            vm.dateTimeRange.time.from = 1200;
+            vm.dateTimeRange.time.to = 1440;
+            $scope.$digest();
+
+            expect(vm.visibleMeals).toEqual($scope.meals.slice(3,4));
+        });
+
         it('it updates calorie targets when dailyCalorieTarget changes', function () {
             var sampleMeals = [
                 {
