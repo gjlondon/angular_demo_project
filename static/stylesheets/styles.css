@@ -95,3 +95,9 @@ form .error-message {
     it doesn't mark invalid times as ng-invalid */
     background-color: #FA787E;
 }
+
+body > div.container-fluid > div > div > form > table > tbody td.form-group.has-error > input
+{
+    /* for edit form time picker */
+    background-color: #FA787E;
+}

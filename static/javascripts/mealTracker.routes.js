@@ -26,7 +26,7 @@
         }).when('/edit/:mealId', {
             controller: 'EditMealController',
             controllerAs: 'vm',
-            templateUrl: '/static/templates/meals/edit-meal.html'
+            templateUrl: '/static/templates/meals/new-meal.html'
         }).when('/', {
             controller: 'IndexController',
             controllerAs: 'indexVM',

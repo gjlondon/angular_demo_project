@@ -21,21 +21,12 @@
     function EditMealController($rootScope, $scope, $timeout, $routeParams, $location, Authentication, Snackbar, Meals, Helpers) {
         var vm = this;
 
+        vm.form_type = "Edit";
         vm.cancel = cancel;
-        vm.canEdit = canEdit;
         vm.mealId = $routeParams['mealId'];
+
         Meals.getMealById(vm.mealId).then(mealsSuccessFn, mealsErrorFn);
 
-        function canEdit(meal) {
-            console.log(meal)
-            var mealEater = meal.eater.username;
-            var authenticatedAccount = Authentication.getAuthenticatedAccount();
-            if (authenticatedAccount == null){
-                return false;
-            }
-            var currentEater = authenticatedAccount.username;
-            return mealEater === currentEater;
-        }
         /**
          * @name mealsSucessFn
          * @desc Update `meals` on viewmodel
@@ -116,7 +107,6 @@
                 vm.date = new Date();
             };
 
-            // TODO avoid override
             vm.clear = function () {
                 vm.date = null;
             };
@@ -143,21 +133,15 @@
 
             vm.hstep = 1;
             vm.mstep = 15;
-
             vm.timeOptions = {
                 hstep: [1, 2, 3],
                 mstep: [1, 5, 10, 15, 25, 30]
             };
-
             vm.ismeridian = true;
-
             vm.changed = function () {
-                console.log('Time changed to: ' + vm.time);
+                vm.time_invalid = vm.time == null;
             };
 
-            vm.clear = function() {
-                vm.time = null;
-            };
         }
     }
 })();

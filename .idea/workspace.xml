@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8c7dcdb5-791b-4028-af8a-f0dd5d25fd5c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/javascripts/tests/controllers/test-new-meal.controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/javascripts/tests/test-controller.js" afterPath="$PROJECT_DIR$/static/javascripts/tests/controllers/test-meals.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/layout/controllers/index.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/layout/controllers/index.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/layout/index.html" afterPath="$PROJECT_DIR$/static/templates/layout/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/karma.conf.js" afterPath="$PROJECT_DIR$/karma.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/authentication/login.html" afterPath="$PROJECT_DIR$/static/templates/authentication/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/meals.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/meals/meals.html" afterPath="$PROJECT_DIR$/static/templates/meals/meals.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentication/models.py" afterPath="$PROJECT_DIR$/authentication/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/layout/controllers/navbar.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/layout/controllers/navbar.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/navbar.html" afterPath="$PROJECT_DIR$/templates/navbar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/mealTracker.routes.js" afterPath="$PROJECT_DIR$/static/javascripts/mealTracker.routes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/meals/new-meal.html" afterPath="$PROJECT_DIR$/static/templates/meals/new-meal.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/profiles/controllers/profile-settings.controller.js" afterPath="$PROJECT_DIR$/static/javascripts/profiles/controllers/profile-settings.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/authentication/register.html" afterPath="$PROJECT_DIR$/static/templates/authentication/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentication/serializers.py" afterPath="$PROJECT_DIR$/authentication/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/profiles/settings.html" afterPath="$PROJECT_DIR$/static/templates/profiles/settings.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/stylesheets/styles.css" afterPath="$PROJECT_DIR$/static/stylesheets/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/authentication/views.py" afterPath="$PROJECT_DIR$/authentication/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="thinkster-django-angular-boilerplate.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -91,8 +75,30 @@
           <file leaf-file-name="new-meal.controller.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.74450547">
-                  <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+                <state vertical-scroll-proportion="0.7549669">
+                  <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mealTracker.routes.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/static/javascripts/mealTracker.routes.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="28" column="53" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="edit-meal.controller.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -127,11 +133,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="styles.css" pinned="false" current-in-tab="true">
+          <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/static/stylesheets/styles.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.86092716">
-                  <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -141,7 +147,7 @@
             <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+                  <caret line="107" column="50" selection-start-line="107" selection-start-column="50" selection-end-line="107" selection-end-column="50" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -159,11 +165,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="new-meal.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="new-meal.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/static/templates/meals/new-meal.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-6.5625">
-                  <caret line="49" column="51" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
+                <state vertical-scroll-proportion="1.0666667">
+                  <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
                   <folding>
                     <element signature="n#style#0;n#h3#0;n#form#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#1;n#form#0;n#!!top" expanded="true" />
@@ -243,7 +249,6 @@
         <option value="$PROJECT_DIR$/static/bower_components/venturocket-angular-slider/build/angular-slider.js" />
         <option value="$PROJECT_DIR$/static/bower_components/venturocket-angular-slider/build/angular-slider.min.js" />
         <option value="$PROJECT_DIR$/meals/permissions.py" />
-        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" />
         <option value="$PROJECT_DIR$/static/templates/meals/delete-meal.html" />
         <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/delete-meal.controller.js" />
         <option value="$PROJECT_DIR$/meals/migrations/__init__.py" />
@@ -265,7 +270,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/templates/javascripts.html" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
-        <option value="$PROJECT_DIR$/static/javascripts/mealTracker.routes.js" />
         <option value="$PROJECT_DIR$/static/javascripts/meals/directives/meals.directive.js" />
         <option value="$PROJECT_DIR$/static/javascripts/tests/test-controller.js" />
         <option value="$PROJECT_DIR$/karma.conf.js" />
@@ -284,8 +288,10 @@
         <option value="$PROJECT_DIR$/static/javascripts/profiles/controllers/profile-settings.controller.js" />
         <option value="$PROJECT_DIR$/static/templates/authentication/register.html" />
         <option value="$PROJECT_DIR$/static/templates/meals/new-meal.html" />
-        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" />
+        <option value="$PROJECT_DIR$/static/javascripts/mealTracker.routes.js" />
+        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js" />
         <option value="$PROJECT_DIR$/static/stylesheets/styles.css" />
+        <option value="$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js" />
       </list>
     </option>
   </component>
@@ -1323,13 +1329,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/meal_tracker/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/meals/meal.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1826087">
@@ -1500,14 +1499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascripts/mealTracker.routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/karma.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1603,10 +1594,9 @@
     <entry file="file://$PROJECT_DIR$/authentication/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
             <element signature="e#29#85#0" expanded="true" />
-            <marker date="1435304703000" expanded="true" signature="465:701" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1672,7 +1662,7 @@
     <entry file="file://$PROJECT_DIR$/authentication/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="32" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -1680,14 +1670,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/navbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/templates/meals/edit-meal.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1703,10 +1685,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/meals/edit-meal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/javascripts/mealTracker.routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="53" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/stylesheets/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/meals/new-meal.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5625">
-          <caret line="49" column="51" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
+        <state vertical-scroll-proportion="1.0666667">
+          <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
           <folding>
             <element signature="n#style#0;n#h3#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#form#0;n#!!top" expanded="true" />
@@ -1714,21 +1720,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js">
+    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/edit-meal.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/stylesheets/styles.css">
+    <entry file="file://$PROJECT_DIR$/static/javascripts/meals/controllers/new-meal.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86092716">
-          <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
-          <folding />
+        <state vertical-scroll-proportion="0.7549669">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -21,61 +21,11 @@
     function NewMealController($rootScope, $scope, $timeout, Authentication, Snackbar, Meals, Helpers) {
         var vm = this;
 
+        vm.form_type = "New";
         vm.submit = submit;
 
-        vm.date = new Date();
-        vm.today = function() {
-            vm.date = new Date();
-        };
-        vm.today();
-
-        vm.clear = function () {
-            vm.date = null;
-        };
-
-        vm.toggleMin = function() {
-            vm.minDate = ( vm.minDate ) ? null : new Date();
-        };
-        vm.toggleMin();
-
-        vm.open = function() {
-            $timeout(function() {
-                vm.opened = true;
-            });
-        };
-
-        vm.dateOptions = {
-            'year-format': "'yy'",
-            'starting-day': 1,
-            'show-weaks': false
-        };
-
-        vm.time = new Date();
-
-        vm.hstep = 1;
-        vm.mstep = 15;
-
-        vm.timeOptions = {
-            hstep: [1, 2, 3],
-            mstep: [1, 5, 10, 15, 25, 30]
-        };
-
-        vm.ismeridian = true;
-
-
-        vm.changed = function () {
-            if (vm.time == null){
-                vm.time_invalid = true;
-            }
-            else {
-                vm.time_invalid = false;
-            }
-
-        };
-
-        vm.clear = function() {
-            vm.time = null;
-        };
+        configureDatePicker();
+        configureTimePicker();
 
         /**
          * @name submit
@@ -118,6 +68,45 @@
                 $rootScope.$broadcast('meal.created.error');
                 Snackbar.error(data.error);
             }
+        }
+
+        function configureDatePicker() {
+            vm.date = new Date();
+            vm.today = function () {
+                vm.date = new Date();
+            };
+            vm.today();
+            vm.clear = function () {
+                vm.date = null;
+            };
+            vm.toggleMin = function () {
+                vm.minDate = ( vm.minDate ) ? null : new Date();
+            };
+            vm.toggleMin();
+            vm.open = function () {
+                $timeout(function () {
+                    vm.opened = true;
+                });
+            };
+            vm.dateOptions = {
+                'year-format': "'yy'",
+                'starting-day': 1,
+                'show-weaks': false
+            };
+        }
+
+        function configureTimePicker() {
+            vm.time = new Date();
+            vm.hstep = 1;
+            vm.mstep = 15;
+            vm.timeOptions = {
+                hstep: [1, 2, 3],
+                mstep: [1, 5, 10, 15, 25, 30]
+            };
+            vm.ismeridian = true;
+            vm.changed = function () {
+                vm.time_invalid = vm.time == null;
+            };
         }
     }
 })();
