@@ -125,17 +125,22 @@
         }
 
         function updateMeals(current, original){
-
             function setDateFilterRange() {
                 vm.visibleMeals = current;
                 var mealDateRange = findDateRangeOfMeals(vm.visibleMeals);
                 vm.dateTimeRange.date.from = mealDateRange.earliestDate;
                 vm.dateTimeRange.date.to = mealDateRange.latestDate;
             }
-            if (current != original && current.length > 0) {
+            if (current != original) {
+                if (current.length > 0){
                 current.sort(sortMealsByTime);
                 setDateFilterRange();
                 filterMeals(current, original);
+                }
+                else {
+                    vm.column = [];
+                }
+
             }
         }
 

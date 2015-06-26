@@ -47,6 +47,7 @@
             });
 
             $scope.$on('meal.deleted', function (event, meal) {
+                
                 var idx;
                 idx = vm.meals.indexOf(meal);
                 return vm.meals.splice(idx, 1);
