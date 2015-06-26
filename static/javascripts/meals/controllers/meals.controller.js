@@ -162,7 +162,6 @@
 
         function filterMeals(current, original){
             if (current != original){
-                console.log(current);
                 var mealsInScope = $scope.meals;
                 var username = $scope.profile.username;
                 var previousMeals = vm.visibleMeals;

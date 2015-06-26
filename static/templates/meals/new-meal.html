@@ -1,26 +1,34 @@
-<form role="form" ng-submit="vm.submit()" ng-cloak>
+<form novalidate role="form" name="form" ng-submit="vm.submit()" ng-cloak>
+    <h3 style="text-transform: capitalize">{{ vm.form_type }} Meal</h3>
     <div class="form-group">
-        <h3>New Meal</h3>
         <label for="meal__name">Food</label>
-        <input type="text" class="form-control" id="meal__name" placeholder="ex. Burger" ng-model="vm.name" required>
+        <input type="text" name="meal_name" class="form-control" id="meal__name" placeholder="ex. Burger" ng-model="vm.name" ng-required="true">
+        <div ng-show="form.$submitted || form.meal_name.$touched">
+            <span class='error-message' ng-show="form.meal_name.$error.required">The meal needs a name.</span>
+
+        </div>
+        
         <label for="meal__description">Description</label>
-      <textarea class="form-control"
+        <textarea class="form-control"
                 id="meal_description"
-                rows="3"
+                rows="2"
                 placeholder="ex. The best thing I've ever eaten!"
                 ng-model="vm.description">
-
-    </textarea>
+        </textarea>
+        
         <label for="meal__calories">Calories</label>
-
-        <input type="number" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" required>
-
+        <input type="number" name="calories" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" required>
+        <div ng-show="form.$submitted || form.calories.$touched">
+            <span class='error-message' ng-show="form.calories.$error.required">Please enter a calorie count for the meal.</span>
+            <span class='error-message' ng-show="form.calories.$error.number">Calorie count must be a number</span>
+        </div>
     </div>
+
     <hr>
 
     <div style="margin-top:10px" class="form-horizontal">
         <label for="meal__meal_date">Date of Meal</label>
-        <input type="text"
+        <input type="text" name="meal_date"
                id="meal__date"
                datepicker-popup="dd-MMMM-yyyy"
                ng-model="vm.date" is-open="vm.opened"
@@ -31,12 +39,19 @@
                ng-required="true"
                 />
         <button class="btn" type="button" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+        <div ng-show="form.$submitted || form.meal_date.$touched">
+            <span class='error-message' ng-show="form.meal_date.$error.required">Please enter a date</span>
+            <span class='error-message' ng-show="form.meal_date.$error.date">This is not a valid date.</span>
+        </div>
     </div>
-        <label for="meal__meal_date">Time of Meal</label>
+
+    <label for="meal__meal_date">Time of Meal</label>
     <timepicker ng-model="vm.time" ng-change="vm.changed()" hour-step="vm.hstep" minute-step="vm.mstep" show-meridian="vm.ismeridian"></timepicker>
+    <span class='error-message' ng-show="vm.time_invalid">Please enter a valid time.</span>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
             Submit
         </button>
     </div>
+
 </form>

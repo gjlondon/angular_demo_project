@@ -40,7 +40,7 @@ module.exports = function(config){
             'static/javascripts/mealTracker.js',
             'static/javascripts/mealTracker.config.js',
             'static/javascripts/mealTracker.routes.js',
-            'static/javascripts/tests/*.js'
+            'static/javascripts/tests/**/*.js'
             //'static/javascripts/**/*.js'
 
         ],

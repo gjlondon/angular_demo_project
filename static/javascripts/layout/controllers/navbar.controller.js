@@ -23,7 +23,6 @@
 
     vm.logout = logout;
     vm.account = Authentication.getAuthenticatedAccount();
-    console.log(vm.account);
 
     $scope.$on('account.login', function (event, meal) {
         vm.account = Authentication.getAuthenticatedAccount();

@@ -64,7 +64,13 @@
 
 
         vm.changed = function () {
-            console.log('Time changed to: ' + vm.time);
+            if (vm.time == null){
+                vm.time_invalid = true;
+            }
+            else {
+                vm.time_invalid = false;
+            }
+
         };
 
         vm.clear = function() {

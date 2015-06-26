@@ -3,11 +3,12 @@ from django.contrib.auth.models import AbstractBaseUser, Group, AbstractUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
+from rest_framework import serializers
 
 
 class AccountManager(BaseUserManager):
     def create_user(self, **kwargs):
-        
+
         email = kwargs.get('email')
         if not email:
             raise ValueError('Users must have a valid email address.')
@@ -15,10 +16,12 @@ class AccountManager(BaseUserManager):
         username = kwargs.get('username')
         if not username:
             raise ValueError('Users must have a valid username.')
-        
+
         password = kwargs.get('password')
-        if not password:
-            raise ValueError('Users must have a valid password.')
+        if not password or len(password) < 6:
+            # DRF refuses to allow custom field validation on ModelSerializers on fields that aren't explicitly on
+            # the model, so we do it here instead
+            raise serializers.ValidationError("Password must be at least 6 characters")
 
         account = self.model(
             email=self.normalize_email(email), username=username

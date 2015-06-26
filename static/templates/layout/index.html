@@ -1,4 +1,9 @@
-<meals meals="indexVM.meals" profile="indexVM.profile" ng-show="indexVM.meals && indexVM.meals.length && indexVM.profile"></meals>
+<meals meals="indexVM.meals" profile="indexVM.profile" ng-show="indexVM.profile"></meals>
+<div ng-hide="indexVM.profile">
+    <div class="col-sm-12">
+        <em>Please login.</em>
+    </div>
+</div>
 <a class="btn btn-primary btn-fab btn-raised mdi-content-add btn-add-new-meal"
   href="javascript:void(0)"
   ng-show="indexVM.isAuthenticated"

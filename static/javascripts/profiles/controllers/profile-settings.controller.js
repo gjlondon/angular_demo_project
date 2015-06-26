@@ -84,7 +84,7 @@
       * @desc Redirect to index and display success snackbar
       */
       function profileDestroySuccessFn(data, status, headers, config) {
-        Authentication.unauthenticate();
+        Authentication.logout();
         $location.url('/');
         Snackbar.show('Your account has been deleted.');
       }
@@ -117,12 +117,7 @@
         var loggedInAccount = response.data;  // for unclear reasons, the put request is putting the actual response in the config object
         var adminPassword = response.config.data.admin_password;
         if (adminPassword){  // assume success, since this designation is only used cosmetically
-          if (adminPassword == "remove") {
-            loggedInAccount.is_admin = false;
-          }
-          else{
-            loggedInAccount.is_admin = true;
-          }
+          loggedInAccount.is_admin = adminPassword != "remove";
         }
         Authentication.setAuthenticatedAccount(loggedInAccount);
         console.log(loggedInAccount);

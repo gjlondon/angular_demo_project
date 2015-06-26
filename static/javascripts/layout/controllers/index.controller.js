@@ -13,12 +13,12 @@
         .module('mealTracker.layout.controllers')
         .controller('IndexController', IndexController);
 
-    IndexController.$inject = ['$scope', 'Authentication', 'Meals', 'Snackbar', 'Profile'];
+    IndexController.$inject = ['$scope', '$location', 'Authentication', 'Meals', 'Snackbar', 'Profile'];
 
     /**
      * @namespace IndexController
      */
-    function IndexController($scope, Authentication, Meals, Snackbar, Profile) {
+    function IndexController($scope, $location, Authentication, Meals, Snackbar, Profile) {
         var vm = this;
 
         vm.isAuthenticated = Authentication.isAuthenticated();
@@ -33,7 +33,14 @@
          * @memberOf mealTracker.layout.controllers.IndexController
          */
         function activate() {
-            Meals.all().then(mealsSuccessFn, mealsErrorFn);
+            if (!vm.isAuthenticated){
+                $location.url("/login");
+                Snackbar.error("You need to login or create an account first.")
+            }
+            else {
+                retrieveProfile();
+                Meals.all().then(mealsSuccessFn, mealsErrorFn);
+            }
 
             $scope.$on('meal.created', function (event, meal) {
                 vm.meals.unshift(meal);
@@ -49,10 +56,6 @@
                 vm.meals.shift();
             });
 
-            if (vm.isAuthenticated){
-                retrieveProfile();
-            }
-
             /**
              * @name mealsSuccessFn
              * @desc Update meals array on view
@@ -60,7 +63,6 @@
             function mealsSuccessFn(data, status, headers, config) {
                 vm.meals = data.data;
             }
-
 
             /**
              * @name mealsErrorFn

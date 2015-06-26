@@ -75,3 +75,23 @@ div.rg-range-picker-calendars > div.rg-range-picker-calendar-box div table thead
 #calorieTargetMessage.greenCalories {
     color: green;
 }
+
+
+form input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+}
+
+form input.ng-valid.ng-touched {
+    background-color: #78FA89;
+}
+
+form .error-message {
+    color: red;
+}
+
+#ngdialog1 > div.ngdialog-content > form > table > tbody td.form-group.has-error > input
+{
+    /* time picker needs special handling of error coloring because by default
+    it doesn't mark invalid times as ng-invalid */
+    background-color: #FA787E;
+}
