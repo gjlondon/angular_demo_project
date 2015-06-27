@@ -1,6 +1,6 @@
 <div class="col-md-4 col-md-offset-4">
   <div class="well" ng-show="vm.profile">
-    <form role="form" class="settings" ng-submit="vm.update()">
+    <form role="form" name="form" class="settings" ng-submit="vm.update()">
       <div class="form-group">
         <label for="settings__email">Email</label>
         <input type="email" class="form-control" id="settings__email" ng-model="vm.profile.email" placeholder="ex. john@example.com" />
@@ -8,13 +8,22 @@
 
       <div class="form-group">
         <label for="settings__password">New Password</label>
-        <input type="password" class="form-control" id="settings__password" ng-model="vm.profile.password" placeholder="ex. notthis" />
+        <input name="password" type="password" class="form-control" id="settings__password" ng-model="vm.profile.password" placeholder="ex. notthis" ng-minlength="6"/>
+          <div ng-show="form.$submitted || form.password.$touched">
+              <span class='error-message' ng-show="form.password.$error.minlength">Your password must be at least 6 characters</span>
+          </div>
       </div>
 
       <div class="form-group">
         <label for="settings__confirm-password">Confirm Password</label>
-        <input type="password" class="form-control" id="settings__confirm-password" ng-model="vm.profile.confirm_password" placeholder="ex. notthis" />
+        <input type="password" name="passwordConfirm" class="form-control" id="settings__confirm-password" ng-model="vm.profile.confirm_password" placeholder="ex. notthis" ng-minlength="6"/>
+          <div ng-show="form.$submitted || form.passwordConfirm.$touched">
+              <span class='error-message' ng-show="form.passwordConfirm.$error.minlength">Your password must be at least 6 characters</span>
+          </div>
       </div>
+        <div ng-show="form.password.$touched && form.passwordConfirm.$touched && form.password.$viewValue != form.passwordConfirm.$viewValue">
+              <span class='error-message'>Your passwords must match!</span>
+        </div>
 
       <div class="form-group">
         <label for="settings__calorie_target">Daily Calorie Target</label>
@@ -27,7 +36,7 @@
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-danger pull-right" ng-click="vm.destroy()">Delete Account</button>
       </div>
     </form>

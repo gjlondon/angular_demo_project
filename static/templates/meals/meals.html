@@ -4,7 +4,7 @@
         ng-class="{greenCalories: vm.targetCaloriesForPeriod > vm.visibleCalories, redCalories: vm.targetCaloriesForPeriod <= vm.visibleCalories}">
         {{ profile.username }}'s calories in interval: {{ vm.visibleCalories }};
         Target Calories For Visible Period: {{ vm.targetCaloriesForPeriod | number: 0}};
-        Daily Calorie Target: <a href="/+{{ vm.profile.username }}/settings">{{  vm.dailyCalorieTarget }} (update in settings)</a>
+        Daily Calorie Target: <a href="/+{{ profile.username }}/settings">{{  vm.dailyCalorieTarget }} (update in settings)</a>
     </p>
 
     <div class="col-xs-12" ng-show="vm.visibleMeals && vm.visibleMeals.length">
