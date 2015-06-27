@@ -47,10 +47,13 @@
             });
 
             $scope.$on('meal.deleted', function (event, meal) {
-                
+
+                console.log(vm.meals);
                 var idx;
                 idx = vm.meals.indexOf(meal);
-                return vm.meals.splice(idx, 1);
+                vm.meals.splice(idx, 1);
+                console.log(vm.meals);
+
             });
 
             $scope.$on('meal.created.error', function () {

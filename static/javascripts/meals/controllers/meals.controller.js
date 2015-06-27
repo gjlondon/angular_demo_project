@@ -132,15 +132,8 @@
                 vm.dateTimeRange.date.to = mealDateRange.latestDate;
             }
             if (current != original) {
-                if (current.length > 0){
-                current.sort(sortMealsByTime);
                 setDateFilterRange();
                 filterMeals(current, original);
-                }
-                else {
-                    vm.column = [];
-                }
-
             }
         }
 
