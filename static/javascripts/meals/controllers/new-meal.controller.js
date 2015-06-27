@@ -23,6 +23,7 @@
 
         vm.form_type = "New";
         vm.submit = submit;
+        vm.submitMealToServer = submitMealToServer;
 
         configureDatePicker();
         configureTimePicker();
@@ -33,13 +34,13 @@
          * @memberOf mealTracker.meals.controllers.NewMealController
          */
         function submit() {
-
             $scope.closeThisDialog();
+            vm.submitMealToServer();
+        }
 
+        function submitMealToServer() {
             var mealTime = Helpers.mergeDateAndTime(vm.date, vm.time);
-
             Meals.create(vm.name, vm.description, vm.calories, mealTime).then(createMealSuccessFn, createMealErrorFn);
-
 
             /**
              * @name createMealSuccessFn
@@ -48,16 +49,16 @@
             function createMealSuccessFn(data, status, headers, config) {
                 Snackbar.show('Success! Meal created.');
                 var meal = data.data;
-                $rootScope.$broadcast('meal.created', {
+                var mealData = {
                     description: meal.description,
                     calories: meal.calories,
                     meal_time: mealTime,
                     name: meal.name,
                     eater: meal.eater,
                     id: meal.id
-                });
+                };
+                $rootScope.$broadcast('meal.created', mealData);
             }
-
 
             /**
              * @name createMealErrorFn

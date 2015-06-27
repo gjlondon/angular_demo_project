@@ -1,75 +1,56 @@
 describe('Unit: NewMealController', function() {
     beforeEach(module('mealTracker'));
 
-    var $controller;
-    var $scope;
-    var vm;
-    var testData = {};
+    var $controller, $httpBackend;
+    var scope;
+    var controller;
+    var $rtScope;
 
-    beforeEach(inject(function ($rootScope, _$controller_) {
-        // The injector unwraps the underscores (_) from around the parameter names when matching
+    beforeEach(inject(function($injector, $rootScope, _$controller_, _$httpBackend_){
+        // the underscores are a convention ng understands, just helps us differentiate parameters from variables
         $controller = _$controller_;
-        $scope = $rootScope.$new();
+        $httpBackend = _$httpBackend_;
+        $rtScope = $injector.get('$rootScope');
+        scope = $rootScope.$new();
+
     }));
+
+    // makes sure all expected requests are made by the time the test ends
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
 
     describe('ViewModel', function () {
 
-        beforeEach(function () {
-            $scope.profile = {
-                "calorie_target": 3500,
-                "email": "george@gmail.com",
-                "id": 11,
-                "is_admin": true,
-                "username": "george"
-            };
-            var otherUser = {
-                "calorie_target": 3500,
-                "email": "james@gmail.com",
-                "id": 11,
-                "is_admin": true,
-                "username": "james"
-            };
-            testData.sampleEarlyMealTime = "2015-03-17T05:19:38";
-            testData.sampleMediumMealTime = "2015-03-21T12:19:38";
-            testData.sampleLateMealTime = "2015-03-25T21:19:38";
-            $scope.meals = [
-                {
-                    "name": "Candy",
-                    "calories": 500,
-                    "description": "",
-                    "meal_time": testData.sampleEarlyMealTime,
-                    "eater": $scope.profile
-                },
-                {
-                    "name": "Pizza",
-                    "calories": 400,
-                    "description": "",
-                    "meal_time": testData.sampleEarlyMealTime,
-                    "eater": otherUser
-                },
-                {
-                    "name": "Hotdog",
-                    "calories": 400,
-                    "description": "",
-                    "meal_time": testData.sampleMediumMealTime,
-                    "eater": $scope.profile
-                },
-                {
-                    "name": "Burrito",
-                    "calories": 400,
-                    "description": "",
-                    "meal_time": testData.sampleLateMealTime,
-                    "eater": $scope.profile
-                }
-            ];
-            vm = $controller('NewMealController', {$scope: $scope});
-            $scope.vm = vm;
-            $scope.$digest();
+        beforeEach(function() {
+            controller = $controller('NewMealController', { $scope: scope });
         });
 
-        it('it creates a new meal', function () {
+        it('it creates a new meal and broadcasts the event', function () {
+            var mealTime = "2015-06-27T14:31:47-07:00";
+            var mealData = {
+                description: "okay",
+                name: "burger",
+                calories: 19,
+                meal_time: mealTime
+            };
+            var eventEmitted = false;
+            $rtScope.$on("meal.created", function(data) {
+                eventEmitted = true;
+            });
+            $httpBackend.expectPOST('/api/v1/meals/', mealData).respond(201, mealData);
+            controller.date = moment(mealData.meal_time).toDate();
+            controller.time = moment(mealData.meal_time).toDate();
+            controller.name = mealData.name;
+            controller.description = mealData.description;
+            controller.calories = mealData.calories;
+            controller.submitMealToServer();
+            // causes the http requests which will be issued by Meals to be completed synchronously, and thus will process the fake response we defined above with the expectGET
+            $httpBackend.flush();
 
-            expect(true).toEqual(true);
+            //run code to test
+            expect(eventEmitted).toBe(true);
         });
     });
 });
