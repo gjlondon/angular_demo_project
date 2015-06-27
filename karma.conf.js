@@ -4,6 +4,7 @@ module.exports = function(config){
         basePath : './',
 
         files : [
+            // dependencies
             'static/bower_components/angular/angular.js',
             'static/bower_components/angular-route/angular-route.js',
             'static/bower_components/angular-mocks/angular-mocks.js',
@@ -15,7 +16,6 @@ module.exports = function(config){
             'static/bower_components/datetimeRangePicker/range-picker.js',
             'static/bower_components/venturocket-angular-slider/build/angular-slider.js',
             'static/bower_components/angular-touch/angular-touch.js',
-
             'static/bower_components/jquery/dist/jquery.js',
             'static/bower_components/bootstrap/dist/js/bootstrap.js',
             'static/bower_components/bootstrap-material-design/dist/js/material.js',
@@ -23,11 +23,8 @@ module.exports = function(config){
             'static/bower_components/underscore/underscore.js',
             'static/lib/snackbarjs/snackbar.min.js',
             'static/bower_components/moment/min/moment.min.js',
-            //'static/javascripts/tests/*.js',
 
-            //'static/javascripts/**/*.js',
-            //'static/javascripts/**/**/*.js',
-            //'static/javascripts/**/**/**/*.js',
+            // project files
             'static/javascripts/layout/layout.module.js',
             'static/javascripts/authentication/authentication.module.js',
             'static/javascripts/authentication/**/*.js',
@@ -41,8 +38,6 @@ module.exports = function(config){
             'static/javascripts/mealTracker.config.js',
             'static/javascripts/mealTracker.routes.js',
             'static/javascripts/tests/**/*.js'
-            //'static/javascripts/**/*.js'
-
         ],
 
         autoWatch : true,

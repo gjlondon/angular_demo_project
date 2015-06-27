@@ -8,7 +8,7 @@
 
 * Fork this repository.
 * `$ git clone git@github.com:<your username>/meal_tracker.git`
-* `$ mkvirtualenv meal_tracker-djangular`
+* `$ mkvirtualenv meal_tracker
 * `$ cd meal_tracker`
 * `$ pip install -r requirements.txt`
 * `$ npm install -g bower`

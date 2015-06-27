@@ -13,12 +13,12 @@
     .module('mealTracker.authentication.controllers')
     .controller('RegisterController', RegisterController);
 
-  RegisterController.$inject = ['$location', '$scope', 'Authentication'];
+  RegisterController.$inject = ['$location', 'Authentication'];
 
   /**
   * @namespace RegisterController
   */
-  function RegisterController($location, $scope, Authentication) {
+  function RegisterController($location, Authentication) {
       var vm = this;
 
       vm.register = register;

@@ -120,7 +120,6 @@
           loggedInAccount.is_admin = adminPassword != "remove";
         }
         Authentication.setAuthenticatedAccount(loggedInAccount);
-        console.log(loggedInAccount);
 
         $rootScope.$broadcast('account.updated', loggedInAccount);
         $location.url("/");

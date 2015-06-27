@@ -20,7 +20,7 @@
     /**
     * @name directive
     * @desc The directive to be returned
-    * @memberOf mealTracker.meals.directives.Meal
+    * @memberOf mealTracker.meals.directives.meal
     */
     var directive = {
       restrict: 'E',

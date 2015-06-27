@@ -1,8 +1,8 @@
-import datetime
 from django.contrib.auth.models import Group
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
+
 from authentication.models import Account
 from meals.models import Meal
 
@@ -10,6 +10,9 @@ __author__ = 'rogueleaderr'
 
 
 class MealsAPITest(APITestCase):
+    """
+    Functional tests of the REST functionality of meals API.
+    """
     def setUp(self):
         self.sample_meal_info = {
             "eater": "John",

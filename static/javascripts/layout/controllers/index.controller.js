@@ -42,10 +42,12 @@
                 Meals.all().then(mealsSuccessFn, mealsErrorFn);
             }
 
+            // trigger ui update if meals are created
             $scope.$on('meal.created', function (event, meal) {
                 vm.meals.unshift(meal);
             });
 
+            // trigger ui update if meals are deleted
             $scope.$on('meal.deleted', function (event, meal) {
                 var idx = vm.meals.indexOf(meal);
                 vm.meals.splice(idx, 1);
@@ -72,6 +74,10 @@
             }
         }
 
+        /**
+         * @name retrieveProfile
+         * @desc get info about the account and make it available on the ViewModel
+         */
         function retrieveProfile(){
             var username = Authentication.getAuthenticatedAccount().username;
             Profile.get(username).then(profileSuccessFn, profileErrorFn);

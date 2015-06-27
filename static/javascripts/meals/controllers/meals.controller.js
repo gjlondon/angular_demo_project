@@ -24,8 +24,8 @@
         vm.columns = [];
         vm.visibleMeals = [];
         vm.filterMeals = filterMeals;
-        vm.calculate_visible_calories = calculate_visible_calories;
-        vm.calculate_visible_meals = calculate_visible_meals;
+        vm.calculateVisibleCalories = calculateVisibleCalories;
+        vm.calculateVisibleMeals = calculateVisibleMeals;
         vm.sortMealsByTime = sortMealsByTime;
         vm.findDateRangeOfMeals = findDateRangeOfMeals;
         vm.activate = activate;
@@ -72,6 +72,7 @@
                 vm.dateTimeRange.time.to = 1439;
             });
 
+            // watch for any changes that would require us to redraw or recalculate the UI
             $scope.$watchCollection(function () { return $scope.meals; }, updateMeals);
             $scope.$watchCollection(function () { return $scope.profile; }, updateDailyCalorieTarget);
             $scope.$watch(function () { return vm.visibleInterval }, updateTargetIntervalCalories);
@@ -91,6 +92,13 @@
             filterMeals($scope.meals, []);
         }
 
+        /**
+         * @name sortMealsByTime
+         * @desc Sort meals into ascending order by meal time
+         * @param a first meal
+         * @param b second meal
+         * @returns {number} the sort order
+         */
         function sortMealsByTime(a, b) {
             var timeA = moment(a.meal_time);
             var timeB = moment(b.meal_time);
@@ -106,6 +114,12 @@
             }
         }
 
+        /**
+         * @name findDateRangeOfMeals
+         * @desc find the earliest and latest date any meal in the set was eaten so we can set date filter boundaries
+         * @param meals
+         * @returns {{latestDate: *, earliestDate: *}}
+         */
         function findDateRangeOfMeals(meals){
             var earliestDate = moment();
             var latestDate = moment();
@@ -124,6 +138,12 @@
             };
         }
 
+        /**
+         * @name updateMeals
+         * @desc update which meals are visible if anything pertinent changes
+         * @param current
+         * @param original
+         */
         function updateMeals(current, original){
             function setDateFilterRange() {
                 vm.visibleMeals = current;
@@ -137,7 +157,7 @@
             }
         }
 
-        function calculate_visible_calories(visibleMeals, username) {
+        function calculateVisibleCalories(visibleMeals, username) {
             return visibleMeals.reduce(function (a, b) {
                 if (b.eater.username === username) {  // make sure admin users only tally their own calories
                     return a + b.calories;
@@ -148,7 +168,17 @@
             }, 0);
         }
 
-        function calculate_visible_meals(mealsInScope, dateFrom, dateTo, timeFrom, timeTo) {
+        /**
+         * @name calculateVisibleMeals
+         * @desc Calculate which meals should be shown based on the applied date/time range filters
+         * @param mealsInScope
+         * @param dateFrom
+         * @param dateTo
+         * @param timeFrom
+         * @param timeTo
+         * @returns {*}
+         */
+        function calculateVisibleMeals(mealsInScope, dateFrom, dateTo, timeFrom, timeTo) {
             return $filter('filter')(mealsInScope, function (meal, index, array) {
                 var mealDate = moment(meal.meal_time);
                 var mealTime = mealDate.hours() * 60 + mealDate.minutes();
@@ -158,6 +188,12 @@
             });
         }
 
+        /**
+         * @name filterMeals
+         * @desc filter meals down to the ones that should be visible given the provided date/time filters.
+         * @param current
+         * @param original
+         */
         function filterMeals(current, original){
             if (current != original){
                 var mealsInScope = $scope.meals;
@@ -171,8 +207,8 @@
                 var hoursPerDay = ((timeTo - timeFrom) / 60);
 
                 vm.visibleInterval = daysInInterval * hoursPerDay / 24; // in days
-                vm.visibleMeals = calculate_visible_meals(mealsInScope, dateFrom, dateTo, timeFrom, timeTo);
-                vm.visibleCalories = calculate_visible_calories(vm.visibleMeals, username);
+                vm.visibleMeals = calculateVisibleMeals(mealsInScope, dateFrom, dateTo, timeFrom, timeTo);
+                vm.visibleCalories = calculateVisibleCalories(vm.visibleMeals, username);
 
                 render(vm.visibleMeals, previousMeals);
             }
@@ -182,7 +218,7 @@
 
         /**
          * @name render
-         * @desc Renders Meals into columns of approximately equal height
+         * @desc Renders Meals into a column
          * @param {Array} current The current value of `vm.meals`
          * @param {Array} original The value of `vm.meals` before it was updated
          * @memberOf mealTracker.meals.controllers.MealsController

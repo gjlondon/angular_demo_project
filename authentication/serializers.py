@@ -6,6 +6,10 @@ from authentication.models import Account
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    """
+    A serializer to process JSON responses when they are recieved or before they are transmitted to the Angular client.
+    """
+    # write-only prevents passwords from being sent back to client when model is requested
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
     admin_password = serializers.CharField(write_only=True, required=False)

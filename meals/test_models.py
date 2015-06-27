@@ -5,7 +5,9 @@ from meals.serializers import MealSerializer
 __author__ = 'rogueleaderr'
 
 class TestMealModel(TestCase):
-
+    """
+    Test basic functionality of our meal model.
+    """
     def setUp(self):
         self.sample_meal = {
             "eater": "John",

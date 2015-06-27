@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import Group
-from rest_framework.utils.serializer_helpers import ReturnDict
+
 from authentication.models import Account
 
 __author__ = 'rogueleaderr'
@@ -8,10 +8,13 @@ __author__ = 'rogueleaderr'
 from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from django.core.urlresolvers import get_resolver
 
 
 class AccountsAPITest(APITestCase):
+    """
+    Functional tests to make sure your REST API behaves correctly.
+    """
+
     def setUp(self):
         admin_group = Group(name="Admin")
         admin_group.save()
@@ -29,11 +32,6 @@ class AccountsAPITest(APITestCase):
         self.sample_admin = Account.objects.create_superuser(**self.sample_admin_credentials)
 
     def test_create_account_with_valid_credentials(self):
-        """
-        Test user can create a new account
-        :return:
-        """
-
         url = reverse('accounts-list', args=None)
         response = self.client.post(url, self.sample_user_credentials, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -41,10 +39,6 @@ class AccountsAPITest(APITestCase):
         self.assertEqual(response.data['email'], self.sample_user_credentials['email'])
 
     def test_reject_creating_account_with_invalid_credentials(self):
-        """
-        Test user can create a new account
-        :return:
-        """
         invalid_credentials = {
             "email": "karl",
             "username": "",
@@ -59,10 +53,6 @@ class AccountsAPITest(APITestCase):
                           'errors': '{"username": ["This field may not be blank."], "password": ["This field may not be blank."], "email": ["Enter a valid email address."]}'})
 
     def test_reject_creating_account_with_missing_credentials(self):
-        """
-        Test user can create a new account
-        :return:
-        """
         invalid_credentials = {}
         url = reverse('accounts-list')
         response = self.client.post(url, invalid_credentials, format='json')
@@ -72,30 +62,18 @@ class AccountsAPITest(APITestCase):
                           'errors': '{"username": ["This field is required."]}'})
 
     def test_can_delete_own_account(self):
-        """
-        Test user can delete her account
-        :return:
-        """
         self.client.login(username=self.sample_user.username, password=self.sample_password)
         url = reverse('accounts-detail', args=self.sample_user.username)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_cannot_delete_another_account(self):
-        """
-
-        :return:
-        """
         self.client.login(username=self.sample_admin.username, password=self.sample_password)
         url = reverse('accounts-detail', args=self.sample_user.username)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_can_update_own_account(self):
-        """
-
-        :return:
-        """
         new_user_data = {
             "email": "george.j.london@gmail.com",
             "username": "george2",
@@ -108,9 +86,6 @@ class AccountsAPITest(APITestCase):
         self.assertEqual(response.content, '{"id":1,"email":"george.j.london@gmail.com","username":"george2","calorie_target":3700,"is_admin":false}')
 
     def test_cannot_update_other_account(self):
-        """
-        :return:
-        """
         new_user_data = {
             "email": "george.j.london@gmail.com",
             "username": "george2",
@@ -122,10 +97,6 @@ class AccountsAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_can_get_own_account_detail(self):
-
-        """
-        :return:
-        """
         self.client.login(username=self.sample_user.username, password=self.sample_password)
         url = reverse('accounts-detail', args=self.sample_user.username)
         response = self.client.get(url)
@@ -133,9 +104,6 @@ class AccountsAPITest(APITestCase):
         self.assertEqual(response.content, '{"id":1,"email":"j@gmail.com","username":"j","calorie_target":2000,"is_admin":false}')
 
     def test_cannot_get_another_account_detail(self):
-        """
-        :return:
-        """
         self.client.login(username=self.sample_admin.username, password=self.sample_password)
         url = reverse('accounts-detail', args=self.sample_user.username)
         response = self.client.get(url)
@@ -173,6 +141,7 @@ class AccountsAPITest(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.content, '[{"id":2,"email":"a@gmail.com","username":"a","calorie_target":2000,"is_admin":true}]')
+
 
 class LoginAPITest(APITestCase):
     def setUp(self):

@@ -1,10 +1,14 @@
 from django.contrib.auth.models import Group
 from django.test import TestCase
+from rest_framework import serializers
 from authentication.models import Account
 
 __author__ = 'rogueleaderr'
 
 class TestAccountModel(TestCase):
+    """
+    Tests to make sure the Account model behaves correctly.
+    """
 
     def setUp(self):
         admin_group = Group(name="Admin")
@@ -43,7 +47,7 @@ class TestAccountModel(TestCase):
             "email": "karl",
             "username": "karl"
         }
-        with self.assertRaises(ValueError):
+        with self.assertRaises(serializers.ValidationError):
             account = self.make_new_account(credentials=invalid_credentials)
 
     def test_can_create_superuser(self):

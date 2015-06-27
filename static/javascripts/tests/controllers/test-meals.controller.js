@@ -83,7 +83,7 @@ describe('Unit: MealsController', function() {
         });
 
         it('it correctly calculates visible calories', function () {
-            var visibleCalories = vm.calculate_visible_calories($scope.meals, "george");
+            var visibleCalories = vm.calculateVisibleCalories($scope.meals, "george");
             expect(visibleCalories).toEqual(1300);
         });
 
@@ -111,18 +111,18 @@ describe('Unit: MealsController', function() {
 
             var earliestTime = 0;
             var latestTime = 1440;
-            var visibleMeals = vm.calculate_visible_meals($scope.meals, earlyDate, lateDate, earliestTime, latestTime);
+            var visibleMeals = vm.calculateVisibleMeals($scope.meals, earlyDate, lateDate, earliestTime, latestTime);
             expect(visibleMeals).toEqual($scope.meals);
 
-            visibleMeals = vm.calculate_visible_meals($scope.meals, earlyDate, midDate, earliestTime, latestTime);
+            visibleMeals = vm.calculateVisibleMeals($scope.meals, earlyDate, midDate, earliestTime, latestTime);
             expect(visibleMeals).toEqual($scope.meals.slice(0,3));
 
-            visibleMeals = vm.calculate_visible_meals($scope.meals, midDate, lateDate, earliestTime, latestTime);
+            visibleMeals = vm.calculateVisibleMeals($scope.meals, midDate, lateDate, earliestTime, latestTime);
             expect(visibleMeals).toEqual($scope.meals.slice(2,4));
 
             var lateTime = 1260;
 
-            visibleMeals = vm.calculate_visible_meals($scope.meals, earlyDate, lateDate, lateTime, latestTime);
+            visibleMeals = vm.calculateVisibleMeals($scope.meals, earlyDate, lateDate, lateTime, latestTime);
             expect(visibleMeals).toEqual($scope.meals.slice(3,4));
         });
 

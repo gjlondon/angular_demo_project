@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('NewMealController', NewMealController);
 
-    NewMealController.$inject = ['$rootScope', '$scope', '$timeout', 'Authentication', 'Snackbar', 'Meals', "Helpers"];
+    NewMealController.$inject = ['$rootScope', '$scope', '$timeout', 'Snackbar', 'Meals', "Helpers"];
 
     /**
      * @namespace NewMealController
      */
-    function NewMealController($rootScope, $scope, $timeout, Authentication, Snackbar, Meals, Helpers) {
+    function NewMealController($rootScope, $scope, $timeout, Snackbar, Meals, Helpers) {
         var vm = this;
 
         vm.form_type = "New";
@@ -33,7 +33,6 @@
          * @memberOf mealTracker.meals.controllers.NewMealController
          */
         function submit() {
-
 
             $scope.closeThisDialog();
 

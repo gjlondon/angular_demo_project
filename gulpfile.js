@@ -20,7 +20,7 @@ gulp.task('build', function () {
   return gulp.src('static/javascripts/**/*.js')
     .pipe(ngAnnotate())
     .pipe(uglify())
-    .pipe(gulp.dest('dist/static/javascripts/'));
+    .pipe(gulp.dest('static/javascripts/compressed'));
 });
 
 

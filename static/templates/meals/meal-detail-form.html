@@ -17,10 +17,11 @@
         </textarea>
         
         <label for="meal__calories">Calories</label>
-        <input type="number" name="calories" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" required>
+        <input type="number" name="calories" class="form-control" id="meal__calories" placeholder="ex. 600" ng-model="vm.calories" ng-maxlength="9" required>
         <div ng-show="form.$submitted || form.calories.$touched">
             <span class='error-message' ng-show="form.calories.$error.required">Please enter a calorie count for the meal.</span>
             <span class='error-message' ng-show="form.calories.$error.number">Calorie count must be a number</span>
+            <span class='error-message' ng-show="form.calories.$error.maxlength">Calorie count must be 9 or fewer digits.</span>
         </div>
     </div>
 

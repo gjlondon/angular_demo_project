@@ -13,12 +13,12 @@
         .module('mealTracker.meals.controllers')
         .controller('EditMealController', EditMealController);
 
-    EditMealController.$inject = ['$rootScope', '$scope', '$timeout', '$routeParams', '$location', 'Authentication', 'Snackbar', 'Meals', "Helpers"];
+    EditMealController.$inject = ['$rootScope', '$timeout', '$routeParams', '$location', 'Snackbar', 'Meals', "Helpers"];
 
     /**
      * @namespace EditMealController
      */
-    function EditMealController($rootScope, $scope, $timeout, $routeParams, $location, Authentication, Snackbar, Meals, Helpers) {
+    function EditMealController($rootScope, $timeout, $routeParams, $location, Snackbar, Meals, Helpers) {
         var vm = this;
 
         vm.form_type = "Edit";
@@ -53,29 +53,27 @@
         setupDatePicker();
         setupTimePicker();
 
+        /**
+         * @name cancel
+         * @desc dismiss the editing window
+         */
         function cancel() {
             $location.url('/');
         }
 
         /**
          * @name submit
-         * @desc Create a new Meal
+         * @desc Edit an existing meal
          * @memberOf mealTracker.meals.controllers.EditMealController
          */
         function submit() {
-
-            // both the date and time pickers return a full Date object with both date and time parts.
-            // We want to keep the date from the date and the time from the time
-            // date strings have a nice format so string manipulation is actually a simpler way to combine them while
-            // preserving timezone info than trying to work with Date objects would be.
+            
             var mealTime = Helpers.mergeDateAndTime(vm.date, vm.time);
-
             Meals.update(vm.mealId, vm.name, vm.description, vm.calories, mealTime).then(updateMealSuccessFn, updateMealErrorFn);
-
 
             /**
              * @name updateMealSuccessFn
-             * @desc Show snackbar with success message
+             * @desc Show snackbar with success message and broadcasts the updated meal so the UI can be updated without waiting for server response
              */
             function updateMealSuccessFn(data, status, headers, config) {
                 Snackbar.show('Success! Meal updated.');
@@ -102,6 +100,10 @@
             }
         }
 
+        /**
+         * @name setupDatePicker
+         * @desc provide necessary setup variables to our date picker widget
+         */
         function setupDatePicker(){
             vm.today = function() {
                 vm.date = new Date();
@@ -125,10 +127,14 @@
             vm.dateOptions = {
                 'year-format': "'yy'",
                 'starting-day': 1,
-                'show-weaks': false
+                'show-weeks': false
             };
         }
-
+        
+        /**
+         * @name setupTimePicker
+         * @desc provide necessary setup variables to our time picker widget
+         */
         function setupTimePicker() {
 
             vm.hstep = 1;
@@ -141,7 +147,6 @@
             vm.changed = function () {
                 vm.time_invalid = vm.time == null;
             };
-
         }
     }
 })();

@@ -64,10 +64,10 @@
 
             /**
              * @name registerErrorFn
-             * @desc Log "Epic failure!" to the console
+             * @desc Creates an error popup
              */
             function registerErrorFn(data, status, headers, config) {
-                console.error('Epic failure!');
+                Snackbar.error('Cannot register with those credentials.');
             }
         }
 
@@ -97,10 +97,9 @@
 
             /**
              * @name loginErrorFn
-             * @desc Log "Epic failure!" to the console
+             * @desc Creates an error popup
              */
             function loginErrorFn(data, status, headers, config) {
-                console.error('Epic failure!');
                 Snackbar.show("Invalid Credentials");
             }
         }
@@ -134,9 +133,9 @@
         /**
          * @name setAuthenticatedAccount
          * @desc Stringify the account object and store it in a cookie
-         * @param {Object} user The account object to be stored
          * @returns {undefined}
          * @memberOf mealTracker.authentication.services.Authentication
+         * @param account the account to save in cookies
          */
         function setAuthenticatedAccount(account) {
             $cookies.put('authenticatedAccount', JSON.stringify(account));
@@ -160,7 +159,6 @@
          */
         function logout() {
             Authentication.unauthenticate();
-            // TODO use djangular DjangoURL
             return $http.post('/api/v1/auth/logout/')
                 .then(logoutSuccessFn, logoutErrorFn);
 
@@ -176,10 +174,10 @@
 
             /**
              * @name logoutErrorFn
-             * @desc Log "Epic failure!" to the console
+             * @desc Creates an error popup
              */
             function logoutErrorFn(data, status, headers, config) {
-                console.error('Epic failure!');
+                Snackbar.error("Cannot logout.")
             }
         }
     }

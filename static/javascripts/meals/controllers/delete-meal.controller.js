@@ -11,16 +11,16 @@
         .module('mealTracker.meals.controllers')
         .controller('DeleteMealController', DeleteMealController);
 
-    DeleteMealController.$inject = ['$rootScope', '$scope', 'Snackbar', 'Meals'];
+    DeleteMealController.$inject = ['$rootScope', 'Snackbar', 'Meals'];
 
-    function DeleteMealController($rootScope, $scope, Snackbar, Meals) {
+    function DeleteMealController($rootScope, Snackbar, Meals) {
         var vm = this;
 
         vm.deleteMeal = deleteMeal;
 
         /**
          * @name deleteMeal
-         * @desc Create a new Meal
+         * @desc Delete an existing Meal
          * @memberOf mealTracker.meals.controllers.DeleteMealController
          */
         function deleteMeal(meal) {

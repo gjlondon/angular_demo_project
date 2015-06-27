@@ -7,8 +7,17 @@ from rest_framework import serializers
 
 
 class AccountManager(BaseUserManager):
+    """
+    Manager to handle creation of accounts and superuser accounts for a custom User model
+    """
     def create_user(self, **kwargs):
 
+        """
+        Creates a regular user.
+
+        :param kwargs: kwargs should contain a valid email, username, and password
+        :return: :raise serializers.ValidationError:
+        """
         email = kwargs.get('email')
         if not email:
             raise ValueError('Users must have a valid email address.')
@@ -33,6 +42,13 @@ class AccountManager(BaseUserManager):
         return account
 
     def create_superuser(self, **kwargs):
+
+        """
+        Create a superuser.
+
+        :param kwargs: should contain valid password, email, and username
+        :return:
+        """
         account = self.create_user(**kwargs)
         self.make_account_admin(account)
 
@@ -48,6 +64,13 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractUser):
+    """
+    Our core user model. Modified from the default to store creation/modification dates and to let us
+    store calorie target on the user model instead of needing to create a related model to store one value.
+
+    also provides helpers for handling promotion to admin and checking of admin permissions to satisfied
+    'multiple access levels' requirement.
+    """
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

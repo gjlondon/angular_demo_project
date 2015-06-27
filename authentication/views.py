@@ -14,25 +14,41 @@ from authentication.serializers import AccountSerializer
 
 
 class AccountViewSet(viewsets.ModelViewSet):
+    """
+    Primary controller for all REST actions on our Account model (i.e. out primary user model)
+
+    Automatically provides GET/POST/PUT/DELETE, though we override POST and PUT with custom behavior.
+    """
+
     lookup_field = 'username'
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
     def get_queryset(self):
         user = self.request.user
+        # users can only see their own account if they try to list /accounts
         return Account.objects.filter(id=user.id)
 
     def get_permissions(self):
+        """
+        Specifies that anyone can create an account but only account owners can modify or view them.
+        :return:
+        """
         if self.request.method == 'POST':
             return (permissions.AllowAny(),)
 
         return (permissions.IsAuthenticated(), IsAccountOwner(),)
 
     def create(self, request):
+        """
+        Customizes the account creation behavior on a POST
+
+        :param request:
+        :return:
+        """
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-
             Account.objects.create_user(**serializer.validated_data)
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
@@ -43,6 +59,14 @@ class AccountViewSet(viewsets.ModelViewSet):
         }, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
+        """
+        Customizes the account update behavior on a PUT.
+
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
 
         username = kwargs.get("username", None)
         if username:
@@ -53,7 +77,6 @@ class AccountViewSet(viewsets.ModelViewSet):
                 instance = serializer.save()
                 self.update_password_if_changed(instance, request, serializer)
                 self.update_admin_status(instance, serializer)
-
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response({
@@ -87,8 +110,18 @@ class AccountViewSet(viewsets.ModelViewSet):
 
 
 class LoginView(views.APIView):
+    """
+    API Endpoint to log a user in. Provided separately because it's not really a RESTful action.
+    """
 
     def post(self, request, format=None):
+        """
+        Accept credentials via POST and log a user in.
+
+        :param request:
+        :param format:
+        :return:
+        """
         data = json.loads(request.body)
 
         username = data.get('username', None)
@@ -113,9 +146,15 @@ class LoginView(views.APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(views.APIView):
-    #permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
+        """
+        Log out whomever makes the request.
+
+        :param request:
+        :param format:
+        :return:
+        """
         logout(request)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
