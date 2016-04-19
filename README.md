@@ -1,9 +1,5 @@
 # meal_tracker
 
-Thanks Luko for helping me through this project.
-
-![Thanks](https://growingyoungereachday.files.wordpress.com/2011/05/thanks.jpg)
-
 ## Installation
 
 *NOTE: Requires [virtualenv](http://virtualenv.readthedocs.org/en/latest/),
